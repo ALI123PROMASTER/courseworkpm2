@@ -1,0 +1,21 @@
+/* =========================================================================
+   AURA WEB - MAIN STYLESHEET
+   ========================================================================= */
+
+/* 1. Variables & Fonts (Burgundy / Gray Theme) */
+@import url('variables.css');
+
+/* 2. Reset, Typography, Utilities */
+@import url('base.css');
+
+/* 3. Global Layout (Header, Footer, Container) */
+@import url('layout.css');
+
+/* 4. Reusable UI Components */
+@import url('components.css');
+
+/* 5. Page-Specific Styles */
+@import url('pages.css');
+
+/* 6. Media Queries */
+@import url('responsive.css');

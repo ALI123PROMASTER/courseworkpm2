@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
+    <title>Аналитика - Aura Web</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:,">
+
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="../index.html" class="logo">
+                <div class="logo__icon">A</div>
+                Aura Web
+            </a>
+            <nav class="nav">
+                <ul class="nav__list" id="nav-list">
+                    <li><a href="../index.html" class="nav__link">Главная</a></li>
+                    <li><a href="form.html" class="nav__link">Заказать</a></li>
+                    <li><a href="about.html" class="nav__link">О нас / Цены</a></li>
+                    <li><a href="stats.html" class="nav__link nav__link--active">Аналитика</a></li>
+                </ul>
+            </nav>
+            <div class="header__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <use href="../media/icons/moon.svg#moon"></use>
+                    </svg>
+                </button>
+                <div class="burger" id="burger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container page-main">
+        <h1 class="section-title animate-on-scroll">Аналитика портфеля</h1>
+        <p class="section-subtitle animate-on-scroll">Сводные данные о проектах и
+            финансовые показатели компании</p>
+
+        <!-- KPI Cards -->
+        <div class="stats-grid">
+            <div class="stat-card glass animate-on-scroll">
+                <h3 class="kpi-title">Всего проектов</h3>
+                <div class="stat-val" id="kpi-total-projects">0</div>
+                <div class="kpi-success">В системе</div>
+            </div>
+
+            <div class="stat-card glass animate-on-scroll">
+                <h3 class="kpi-title">Общий бюджет (USD)</h3>
+                <div class="stat-val stat-val--warning" id="kpi-total-budget">$0</div>
+                <div class="kpi-success">+12% за месяц</div>
+            </div>
+
+            <div class="stat-card glass animate-on-scroll">
+                <h3 class="kpi-title">Успешность сдачи</h3>
+                <div class="stat-val" id="kpi-success-rate">0%</div>
+                <div class="kpi-text">Доля проектов "Готово"</div>
+            </div>
+        </div>
+
+        <div class="stats-dashboard">
+            <!-- Progress Bars (Category breakdown) -->
+            <div class="chart-card glass animate-on-scroll">
+                <h3 class="stats-section-title">Проекты по категориям</h3>
+                <div id="category-bars">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Budget Distribution -->
+            <div class="chart-card glass animate-on-scroll">
+                <h3 class="stats-section-title text-center">Распределение бюджета</h3>
+                <div class="budget-layout">
+                    <div class="circle-chart-container">
+                        <div id="circle-chart" class="circle-chart"></div>
+                        <!-- Center Metric -->
+                        <div class="chart-center">
+                            <span class="chart-label">Топ сфера</span>
+                            <strong id="top-sphere" class="chart-value">-</strong>
+                        </div>
+                    </div>
+
+                    <div class="chart-legend" id="chart-legend">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer mt-40">
+        <div class="container footer__container">
+            <div class="logo">
+                <div class="logo__icon logo__icon--small">A</div>Aura Web
+            </div>
+            <div class="footer__contact">
+                <a href="tel:+18001234567" class="footer__phone"
+                    style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+            </div>
+            <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/stats.js"></script>
+</body>
+
+</html>

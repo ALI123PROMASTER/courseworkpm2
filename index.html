@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
+    <title>Aura Web - Корпоративные решения</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <div class="logo__icon">A</div>
+                Aura Web
+            </a>
+
+            <nav class="nav">
+                <ul class="nav__list" id="nav-list">
+                    <li><a href="index.html" class="nav__link nav__link--active">Главная</a></li>
+                    <li><a href="#services" class="nav__link">Услуги</a></li>
+                    <li><a href="#portfolio" class="nav__link">Портфолио</a></li>
+                    <li><a href="pages/about.html" class="nav__link">О нас / Цены</a></li>
+                    <li><a href="pages/stats.html" class="nav__link">Аналитика</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <use href="media/icons/moon.svg#moon"></use>
+                    </svg>
+                </button>
+                <div class="burger" id="burger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home" class="hero container">
+            <div class="hero__content animate-on-scroll">
+                <div class="hero__badge">Входим в Топ-10 веб-студий СНГ</div>
+                <h1 class="hero__title">Создаем <span>цифровые продукты</span> премиум класса</h1>
+                <p class="hero__desc">Разрабатываем сложные веб-платформы, финтех-решения и мобильные приложения с
+                    высокой конверсией и современным UX/UI дизайном.</p>
+                <div class="hero__actions">
+                    <a href="pages/form.html" class="btn btn--primary">Создать проект</a>
+                    <a href="#portfolio" class="btn btn--outline">Наши работы</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="services container">
+            <h2 class="section-title animate-on-scroll">Наши компетенции</h2>
+            <p class="section-subtitle animate-on-scroll">Полный цикл разработки: от аналитики до релиза и поддержки</p>
+
+            <div class="services__grid">
+                <div class="service-card glass animate-on-scroll">
+                    <div class="service-card__icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <use href="media/icons/monitor.svg#monitor"></use>
+                        </svg>
+                    </div>
+                    <h3>Web Платформы</h3>
+                    <p>Проектируем высоконагруженные серверные архитектуры, SaaS платформы и корпоративные порталы.</p>
+                </div>
+
+                <div class="service-card glass animate-on-scroll">
+                    <div class="service-card__icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <use href="media/icons/smartphone.svg#smartphone"></use>
+                        </svg>
+                    </div>
+                    <h3>Мобильная разработка</h3>
+                    <p>Нативные iOS и Android приложения. Кроссплатформенная разработка с идеальной производительностью.
+                    </p>
+                </div>
+
+                <div class="service-card glass animate-on-scroll">
+                    <div class="service-card__icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <use href="media/icons/brush.svg#brush"></use>
+                        </svg>
+                    </div>
+                    <h3>UI/UX Дизайн</h3>
+                    <p>Проектирование пользовательского опыта и создание визуальных концепций, которые продают.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD (PORTFOLIO) SECTION -->
+        <section id="portfolio" class="dashboard container">
+            <div class="dashboard__header animate-on-scroll">
+                <div>
+                    <h2 class="section-title">Проекты в работе</h2>
+                    <p class="section-subtitle mb-0">Управление и мониторинг портфеля</p>
+                </div>
+
+                <div class="filters">
+                    <div class="input-group">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <use href="media/icons/search.svg#search"></use>
+                        </svg>
+                        <input type="text" id="search-input" class="form__input" placeholder="Поиск по названию...">
+                    </div>
+
+                    <select id="category-filter" class="form__input">
+                        <option value="all">Все категории</option>
+                        <option value="Web Platform">Web Платформы</option>
+                        <option value="Mobile App">Мобильные приложения</option>
+                        <option value="Enterprise System">Корпоративные системы</option>
+                        <option value="UI/UX Design">UI/UX Дизайн</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="projects-grid" id="projects-grid">
+                <!-- Data rendered by JS -->
+            </div>
+
+            <div id="no-results" class="empty-state">
+                Проектов не найдено
+            </div>
+        </section>
+
+        <!-- PARTNERS SECTION -->
+        <section class="partners animate-on-scroll">
+            <h2 class="section-title text-center">Нам доверяют</h2>
+            <div class="partners-grid container">
+                <a href="#" class="partner-logo">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <use href="media/icons/acme.svg#acme"></use>
+                    </svg>
+                    Acme Corp
+                </a>
+                <a href="#" class="partner-logo">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <use href="media/icons/globaltech.svg#globaltech"></use>
+                    </svg>
+                    GlobalTech
+                </a>
+                <a href="#" class="partner-logo">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <use href="media/icons/innovate.svg#innovate"></use>
+                    </svg>
+                    Innovate Ltd
+                </a>
+                <a href="#" class="partner-logo">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <use href="media/icons/studiox.svg#studiox"></use>
+                    </svg>
+                    StudioX
+                </a>
+                <a href="#" class="partner-logo">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <use href="media/icons/nexus.svg#nexus"></use>
+                    </svg>
+                    Nexus
+                </a>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section class="gallery animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title text-center">Галерея проектов</h2>
+                <div class="gallery-grid" id="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=400&fit=crop"
+                            alt="Web Development" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">E-commerce Platform</h4>
+                            <span class="gallery-cat">Web Разработка</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=400&fit=crop"
+                            alt="Data Analytics" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">CRM System</h4>
+                            <span class="gallery-cat">Корпоративные системы</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=400&fit=crop"
+                            alt="Programming" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">SaaS Dashboard</h4>
+                            <span class="gallery-cat">Web Платформы</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500&h=400&fit=crop"
+                            alt="Mobile App" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Fintech App</h4>
+                            <span class="gallery-cat">Мобильные приложения</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS SECTION -->
+        <section class="reviews animate-on-scroll" id="reviews-section">
+            <div class="container">
+                <h2 class="section-title text-center">Отзывы клиентов</h2>
+
+                <div class="reviews-grid" id="reviews-grid">
+                    <!-- Reviews rendered by JS -->
+                </div>
+
+                <div class="review-form-container glass">
+                    <h3 class="review-form-title text-center">Оставить отзыв</h3>
+                    <form id="review-form" class="form-grid">
+                        <div class="input-float">
+                            <input type="text" id="review-name" class="form__input" required placeholder=" ">
+                            <label for="review-name">Ваше имя *</label>
+                        </div>
+                        <div class="input-float">
+                            <select id="review-rating" class="form__input form__select" required>
+                                <option value="" disabled selected>Оценка *</option>
+                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                <option value="3">⭐⭐⭐ (3/5)</option>
+                                <option value="2">⭐⭐ (2/5)</option>
+                                <option value="1">⭐ (1/5)</option>
+                            </select>
+                        </div>
+                        <div class="input-float full-width">
+                            <textarea id="review-text" class="form__input" required placeholder=" "></textarea>
+                            <label for="review-text">Текст отзыва *</label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn--primary btn-submit">Отправить отзыв</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="faq animate-on-scroll">
+            <h2 class="section-title text-center">Популярные вопросы</h2>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Как формируется стоимость проекта?
+                        <div class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                width="16">
+                                <use href="media/icons/chevron-down.svg#chevron-down"></use>
+                            </svg></div>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Стоимость зависит от сложности логики, количества интеграций, платформы и сроков. Вы можете
+                            воспользоваться нашим калькулятором на странице "О нас" для предварительной оценки.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Оказываете ли вы техническую поддержку?
+                        <div class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                width="16">
+                                <use href="media/icons/chevron-down.svg#chevron-down"></use>
+                            </svg></div>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Да, мы предлагаем гарантийную поддержку в течение 6 месяцев после релиза продукта, а также
+                            SLA контракты на постоянное сопровождение инфраструктуры.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Возможно ли внести изменения в живой проект?
+                        <div class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                width="16">
+                                <use href="media/icons/chevron-down.svg#chevron-down"></use>
+                            </svg></div>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Конечно. Воспользуйтесь панелью управления выше: нажмите "Редактировать" на карточке
+                            проекта, чтобы обновить описание, бюджет или статус прямо на лету!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__container">
+            <a href="index.html" class="logo">
+                <div class="logo__icon logo__icon--small">A</div>
+                Aura Web
+            </a>
+
+            <div class="socials">
+                <a href="#" class="social-link" aria-label="Telegram"><svg fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" width="20">
+                        <use href="media/icons/telegram.svg#telegram"></use>
+                    </svg></a>
+                <a href="#" class="social-link" aria-label="Twitter"><svg fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" width="20">
+                        <use href="media/icons/twitter.svg#twitter"></use>
+                    </svg></a>
+                <a href="#" class="social-link" aria-label="LinkedIn"><svg fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" width="20">
+                        <use href="media/icons/linkedin.svg#linkedin"></use>
+                    </svg></a>
+            </div>
+
+            <div class="footer__contact">
+                <a href="tel:+18001234567" class="footer__phone"
+                    style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+            </div>
+            <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <!-- EDIT MODAL -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal">
+            <div class="modal__header">
+                <h2>Редактирование проекта</h2>
+                <button class="btn-close" id="close-modal">&times;</button>
+            </div>
+            <form id="edit-form" class="form-grid">
+                <input type="hidden" id="edit-id">
+
+                <div class="input-float full-width">
+                    <input type="text" id="edit-title" class="form__input" placeholder=" " required>
+                    <label for="edit-title">Название проекта</label>
+                </div>
+
+                <div class="input-float">
+                    <select id="edit-category" class="form__input" required>
+                        <option value="Web Platform">Web Платформы</option>
+                        <option value="Mobile App">Мобильные приложения</option>
+                        <option value="Enterprise System">Корпоративные системы</option>
+                        <option value="UI/UX Design">UI/UX Дизайн</option>
+                    </select>
+                </div>
+
+                <div class="input-float">
+                    <input type="number" id="edit-price" class="form__input" placeholder=" " required>
+                    <label for="edit-price">Бюджет ($)</label>
+                </div>
+
+                <div class="input-float full-width">
+                    <textarea id="edit-desc" class="form__input" placeholder=" " required></textarea>
+                    <label for="edit-desc">Описание проекта</label>
+                </div>
+
+                <div class="modal__actions">
+                    <button type="button" class="btn btn--outline" id="cancel-modal">Отмена</button>
+                    <button type="submit" class="btn btn--primary">Сохранить изменения</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

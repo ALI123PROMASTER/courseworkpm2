@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
+    <title>О нас - Aura Web</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:,">
+
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="../index.html" class="logo">
+                <div class="logo__icon">A</div>
+                Aura Web
+            </a>
+            <nav class="nav">
+                <ul class="nav__list" id="nav-list">
+                    <li><a href="../index.html" class="nav__link">Главная</a></li>
+                    <li><a href="form.html" class="nav__link">Заказать</a></li>
+                    <li><a href="about.html" class="nav__link nav__link--active">О нас / Цены</a></li>
+                    <li><a href="stats.html" class="nav__link">Аналитика</a></li>
+                </ul>
+            </nav>
+            <div class="header__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <use href="../media/icons/moon.svg#moon"></use>
+                    </svg>
+                </button>
+                <div class="burger" id="burger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container page-main">
+        <h1 class="section-title animate-on-scroll text-center">О компании и Цены</h1>
+        <p class="section-subtitle animate-on-scroll about-hero">Познакомьтесь с
+            нашей командой и рассчитайте примерную стоимость вашего будущего проекта</p>
+
+        <div class="form-grid">
+            <!-- Author / Info Card -->
+            <div class="glass author-card animate-on-scroll">
+                <div class="author-avatar">С</div>
+                <h2 class="service-tier-title">Студент</h2>
+                <p class="service-tier-subtitle">Frontend Developer & UI Designer</p>
+
+                <div class="about-card">
+                    <h3 class="about-card-title">О проекте</h3>
+                    <p class="about-card-desc">
+                        Данный корпоративный лендинг разработан с нуля с использованием чистого HTML5, CSS3 и Vanilla
+                        JS.
+                    </p>
+                    <ul class="about-list">
+                        <li>✓ <strong>Методология:</strong> БЭМ, Flexbox, CSS Grid</li>
+                        <li>✓ <strong>Хранилище:</strong> LocalStorage</li>
+                        <li>✓ <strong>Дизайн:</strong> Glassmorphism & Animations</li>
+                        <li>✓ <strong>Адаптивность:</strong> 320px - 1920px</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Calculator Card -->
+            <div class="glass calc-card animate-on-scroll calc-card-wrap">
+                <h2 class="calc-title">Калькулятор стоимости</h2>
+
+                <div class="input-float">
+                    <select id="calc-type" class="form__input">
+                        <option value="landing">Лендинг пейдж (от $500)</option>
+                        <option value="corporate" selected>Корпоративный сайт (от $1200)</option>
+                        <option value="ecommerce">Интернет-магазин (от $2500)</option>
+                        <option value="saas">SaaS Платформа (от $5000)</option>
+                    </select>
+                </div>
+
+                <div class="my-8">
+                    <div class="flex-between">
+                        <span class="switch-label">Количество уникальных страниц:</span>
+                        <span id="pages-val" class="calc-pages-val">10</span>
+                    </div>
+                    <input type="range" id="calc-pages" min="1" max="50" value="10">
+                </div>
+
+                <div class="switch-wrap">
+                    <span class="switch-label">Адаптивный дизайн (Mobile First)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="calc-mobile" checked disabled>
+                        <span class="slider slider--disabled"></span>
+                    </label>
+                </div>
+
+                <div class="switch-wrap">
+                    <div>
+                        <span class="switch-label d-block">SEO Оптимизация</span>
+                        <span class="calc-sublabel">Мета-теги, семантика, микроразметка
+                            (+$300)</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="calc-seo">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="switch-wrap">
+                    <div>
+                        <span class="switch-label d-block">Копирайтинг</span>
+                        <span class="calc-sublabel">Написание продающих текстов
+                            (+$500)</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="calc-copy">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="price-display">
+                    $<span id="total-price">0</span> <span>USD</span>
+                </div>
+
+                <p class="calc-disclaimer">
+                    * Итоговая стоимость является ориентировочной.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer mt-40">
+        <div class="container footer__container">
+            <div class="logo">
+                <div class="logo__icon logo__icon--small">A</div>Aura Web
+            </div>
+            <div class="footer__contact">
+                <a href="tel:+18001234567" class="footer__phone"
+                    style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+            </div>
+            <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <!-- JS Logic specific to this page inside HTML for immediate parsing -->
+    <script src="../js/about.js"></script>
+    <script src="../js/storage.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
+    <title>Новый проект - Aura Web</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="../index.html" class="logo">
+                <div class="logo__icon">A</div>
+                Aura Web
+            </a>
+            <nav class="nav">
+                <ul class="nav__list" id="nav-list">
+                    <li><a href="../index.html" class="nav__link">Главная</a></li>
+                    <li><a href="form.html" class="nav__link nav__link--active">Заказать</a></li>
+                    <li><a href="about.html" class="nav__link">О нас / Цены</a></li>
+                    <li><a href="stats.html" class="nav__link">Аналитика</a></li>
+                </ul>
+            </nav>
+            <div class="header__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <use href="../media/icons/moon.svg#moon"></use>
+                    </svg>
+                </button>
+                <div class="burger" id="burger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container form-page-main">
+        <div class="glass form-container">
+            <h1 class="form-title">Создание
+                проекта</h1>
+
+            <form id="project-form" class="form-grid" novalidate>
+                <div class="input-float full-width">
+                    <input type="text" id="title" class="form__input" placeholder=" ">
+                    <label for="title">Название проекта *</label>
+                </div>
+
+                <div class="input-float">
+                    <select id="category" class="form__input">
+                        <option value="" disabled selected>Выберите категорию *</option>
+                        <option value="Web Platform">Web Платформы</option>
+                        <option value="Mobile App">Мобильные приложения</option>
+                        <option value="Enterprise System">Корпоративные системы</option>
+                        <option value="UI/UX Design">UI/UX Дизайн</option>
+                    </select>
+                </div>
+
+                <div class="input-float">
+                    <input type="date" id="date" class="form__input">
+                </div>
+
+                <div class="input-float full-width">
+                    <input type="number" id="price" class="form__input" placeholder=" " min="0">
+                    <label for="price">Бюджет, USD *</label>
+                </div>
+
+                <div class="input-float full-width">
+                    <textarea id="desc" class="form__input" placeholder=" "></textarea>
+                    <label for="desc">Подробное описание задачи *</label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn--outline btn-cancel" id="btn-cancel">Отмена</button>
+                    <button type="submit" class="btn btn--primary btn-submit">Запустить проект</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer mt-40">
+        <div class="container footer__container">
+            <div class="logo">
+                <div class="logo__icon logo__icon--small">A</div>Aura Web
+            </div>
+            <div class="footer__contact">
+                <a href="tel:+18001234567" class="footer__phone"
+                    style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+            </div>
+            <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/form.js"></script>
+</body>
+
+</html>
