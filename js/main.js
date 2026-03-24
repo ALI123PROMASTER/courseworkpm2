@@ -124,27 +124,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
       filteredData.forEach((project) => {
         const card = document.createElement("div");
-        card.className = "card glass animate-on-scroll is-visible"; // Auto visible when injected
+        card.className = "card glass animate-on-scroll";
 
         const isChecked = project.status === "Готово" ? "checked" : "";
 
+        // Escape user data to prevent XSS
+        const safeCategory = window.escapeHTML(project.category);
+        const safeTitle = window.escapeHTML(project.title);
+        const safeDesc = window.escapeHTML(project.description) || "Нет описания";
+        const safeDate = window.escapeHTML(project.date);
+        const safeStatus = window.escapeHTML(project.status);
+
         card.innerHTML = `
                     <div class="card__header">
-                        <span class="badge badge--category">${project.category}</span>
+                        <span class="badge badge--category">${safeCategory}</span>
                         <div class="status-toggle" title="Отметить статус">
-                            <input type="checkbox" class="status-checkbox" data-id="${project.id}" ${isChecked}>
+                            <input type="checkbox" class="status-checkbox" data-id="${project.id}" ${isChecked} aria-label="Отметить проект как выполненный">
                         </div>
                     </div>
-                    <h3 class="card__title">${project.title}</h3>
-                    <p class="card__desc">${project.description || "Нет описания"}</p>
+                    <h3 class="card__title">${safeTitle}</h3>
+                    <p class="card__desc">${safeDesc}</p>
                     
                     <div class="card__meta">
-                        <span class="card__date">Срок: ${project.date}</span>
+                        <span class="card__date">Срок: ${safeDate}</span>
                         <span class="card__price">$${formatNumber(project.price || 0)}</span>
                     </div>
                     
                     <div class="card__footer">
-                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Статус: <strong style="color: ${isChecked ? "var(--success)" : "var(--warning)"}">${project.status}</strong></span>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Статус: <strong style="color: ${isChecked ? "var(--success)" : "var(--warning)"}">${safeStatus}</strong></span>
                         <div class="card__actions">
                             <button class="btn-icon btn-edit" data-id="${project.id}" aria-label="Редактировать">
                                 ${createIcon("edit", 'fill="none" stroke="currentColor" viewBox="0 0 24 24"')}
@@ -157,6 +164,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
         projectsGrid.appendChild(card);
       });
+      
+      // Re-initialize scroll animations for the new cards
+      window.initScrollAnimations?.();
     }
   }
 
@@ -275,20 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- 4. UI ENHANCEMENTS & ANIMATIONS ---
 
-  // Scroll Animations using Intersection Observer
-  const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target); // Animate once
-      }
-    });
-  }, observerOptions);
-
-  document
-    .querySelectorAll(".animate-on-scroll")
-    .forEach((el) => observer.observe(el));
+  // Scroll Animations using Intersection Observer - Moved to global storage.js
 
   // Theme Toggle and Mobile Menu moved to global storage.js
 

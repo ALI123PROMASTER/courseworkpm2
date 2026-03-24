@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Формируем объект нового проекта
     const newProject = {
-      id: Date.now(), // Используем текущий timestamp как уникальный генератор ID
+      id: crypto.randomUUID(), // Используем crypto.randomUUID() как уникальный генератор ID
       title: titleEl.value.trim(),
       category: categoryEl.value,
       date: dateEl.value,

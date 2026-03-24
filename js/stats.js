@@ -3,15 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = getData(); // From storage.js
 
     // Настройка Intersection Observer для анимаций при скролле элементов с классом animate-on-scroll
-    const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    // Перенесено в глобальный storage.js
 
     // --- 1. ВЫЧИСЛЕНИЕ KPI (Ключевые показатели эффективности) ---
     const totalProjectsEl = document.getElementById('kpi-total-projects');

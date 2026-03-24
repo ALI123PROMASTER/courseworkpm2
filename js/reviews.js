@@ -45,20 +45,24 @@ document.addEventListener('DOMContentLoaded', () => {
         reviews.forEach(review => {
             const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
 
+            // Escape user data to prevent XSS
+            const safeName = window.escapeHTML(review.name);
+            const safeText = window.escapeHTML(review.text);
+
             const card = document.createElement('div');
             card.className = 'review-card animate-on-scroll';
             card.innerHTML = `
                 <div class="review-header">
                     <div class="review-author-info">
-                        <div class="review-avatar">${review.name.charAt(0)}</div>
+                        <div class="review-avatar">${safeName.charAt(0)}</div>
                         <div>
-                            <span class="review-author">${review.name}</span>
+                            <span class="review-author">${safeName}</span>
                             <span class="review-date">${review.date}</span>
                         </div>
                     </div>
                     <div class="review-rating">${stars}</div>
                 </div>
-                <p class="review-text">"${review.text}"</p>
+                <p class="review-text">"${safeText}"</p>
             `;
             reviewsGrid.appendChild(card);
         });
@@ -79,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const newReview = {
-                id: 'r' + Date.now(),
+                id: crypto.randomUUID(),
                 name: nameInput.value.trim(),
                 rating: parseInt(ratingInput.value),
                 text: textInput.value.trim(),

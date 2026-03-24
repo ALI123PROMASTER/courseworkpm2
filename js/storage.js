@@ -105,8 +105,36 @@ function buildIcon(symbolId, attributes) {
 window.getIconHref = getIconHref;
 window.buildIcon = buildIcon;
 
+window.escapeHTML = function(str) {
+  if (typeof str !== 'string') return str;
+  return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+};
+
+window.initScrollAnimations = function() {
+  const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+  const observer = new IntersectionObserver((entries, observerObj) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observerObj.unobserve(entry.target); // Animate once
+      }
+    });
+  }, observerOptions);
+
+  document
+    .querySelectorAll(".animate-on-scroll:not(.is-visible)")
+    .forEach((el) => observer.observe(el));
+};
+
 // Глобальная логика UI (Переключение темы, Бургер-меню, Липкая шапка), которая работает на всех страницах
 document.addEventListener("DOMContentLoaded", () => {
+  window.initScrollAnimations();
+
   // --- НАСТРОЙКА ТЕМЫ ---
   // Получаем сохраненную тему или устанавливаем 'dark' по умолчанию
   const savedTheme = localStorage.getItem("theme") || "dark";

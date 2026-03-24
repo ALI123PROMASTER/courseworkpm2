@@ -10,8 +10,16 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
         rel="stylesheet">
     <title>Aura Web - Корпоративные решения</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <meta name="description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
+    <meta property="og:title" content="Aura Web - Корпоративные решения">
+    <meta property="og:description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iI2UxMWQ0OCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iNjAiPkE8L3RleHQ+PC9zdmc+">
 </head>
 
 <body>
@@ -38,9 +46,9 @@
                         <use href="media/icons/moon.svg#moon"></use>
                     </svg>
                 </button>
-                <div class="burger" id="burger">
+                <button class="burger" id="burger" aria-label="Открыть мобильное меню" type="button">
                     <span></span><span></span><span></span>
-                </div>
+                </button>
             </div>
         </div>
     </header>
@@ -112,10 +120,10 @@
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <use href="media/icons/search.svg#search"></use>
                         </svg>
-                        <input type="text" id="search-input" class="form__input" placeholder="Поиск по названию...">
+                        <input type="text" id="search-input" class="form__input" placeholder="Поиск по названию..." aria-label="Поиск по названию проекта">
                     </div>
 
-                    <select id="category-filter" class="form__input">
+                    <select id="category-filter" class="form__input" aria-label="Фильтровать проекты по категории">
                         <option value="all">Все категории</option>
                         <option value="Web Platform">Web Платформы</option>
                         <option value="Mobile App">Мобильные приложения</option>
@@ -138,31 +146,31 @@
         <section class="partners animate-on-scroll">
             <h2 class="section-title text-center">Нам доверяют</h2>
             <div class="partners-grid container">
-                <a href="#" class="partner-logo">
+                <a href="#" class="partner-logo" rel="noopener">
                     <svg fill="currentColor" viewBox="0 0 24 24">
                         <use href="media/icons/acme.svg#acme"></use>
                     </svg>
                     Acme Corp
                 </a>
-                <a href="#" class="partner-logo">
+                <a href="#" class="partner-logo" rel="noopener">
                     <svg fill="currentColor" viewBox="0 0 24 24">
                         <use href="media/icons/globaltech.svg#globaltech"></use>
                     </svg>
                     GlobalTech
                 </a>
-                <a href="#" class="partner-logo">
+                <a href="#" class="partner-logo" rel="noopener">
                     <svg fill="currentColor" viewBox="0 0 24 24">
                         <use href="media/icons/innovate.svg#innovate"></use>
                     </svg>
                     Innovate Ltd
                 </a>
-                <a href="#" class="partner-logo">
+                <a href="#" class="partner-logo" rel="noopener">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <use href="media/icons/studiox.svg#studiox"></use>
                     </svg>
                     StudioX
                 </a>
-                <a href="#" class="partner-logo">
+                <a href="#" class="partner-logo" rel="noopener">
                     <svg fill="currentColor" viewBox="0 0 24 24">
                         <use href="media/icons/nexus.svg#nexus"></use>
                     </svg>
@@ -177,34 +185,34 @@
                 <h2 class="section-title text-center">Галерея проектов</h2>
                 <div class="gallery-grid" id="gallery-grid">
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=400&fit=crop"
-                            alt="Web Development" class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=400&fit=crop&fm=webp"
+                            alt="Web Development" class="gallery-img" loading="lazy" width="500" height="400" crossorigin="anonymous">
                         <div class="gallery-overlay">
-                            <h4 class="gallery-title">E-commerce Platform</h4>
+                            <h3 class="gallery-title">E-commerce Platform</h3>
                             <span class="gallery-cat">Web Разработка</span>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=400&fit=crop"
-                            alt="Data Analytics" class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=400&fit=crop&fm=webp"
+                            alt="Data Analytics" class="gallery-img" loading="lazy" width="500" height="400" crossorigin="anonymous">
                         <div class="gallery-overlay">
-                            <h4 class="gallery-title">CRM System</h4>
+                            <h3 class="gallery-title">CRM System</h3>
                             <span class="gallery-cat">Корпоративные системы</span>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=400&fit=crop"
-                            alt="Programming" class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=400&fit=crop&fm=webp"
+                            alt="Programming" class="gallery-img" loading="lazy" width="500" height="400" crossorigin="anonymous">
                         <div class="gallery-overlay">
-                            <h4 class="gallery-title">SaaS Dashboard</h4>
+                            <h3 class="gallery-title">SaaS Dashboard</h3>
                             <span class="gallery-cat">Web Платформы</span>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500&h=400&fit=crop"
-                            alt="Mobile App" class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500&h=400&fit=crop&fm=webp"
+                            alt="Mobile App" class="gallery-img" loading="lazy" width="500" height="400" crossorigin="anonymous">
                         <div class="gallery-overlay">
-                            <h4 class="gallery-title">Fintech App</h4>
+                            <h3 class="gallery-title">Fintech App</h3>
                             <span class="gallery-cat">Мобильные приложения</span>
                         </div>
                     </div>
@@ -229,7 +237,7 @@
                             <label for="review-name">Ваше имя *</label>
                         </div>
                         <div class="input-float">
-                            <select id="review-rating" class="form__input form__select" required>
+                            <select id="review-rating" class="form__input form__select" required aria-label="Выберите оценку">
                                 <option value="" disabled selected>Оценка *</option>
                                 <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
                                 <option value="4">⭐⭐⭐⭐ (4/5)</option>
@@ -258,10 +266,10 @@
                 <div class="accordion-item">
                     <button class="accordion-header">
                         Как формируется стоимость проекта?
-                        <div class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        <span class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 width="16">
                                 <use href="media/icons/chevron-down.svg#chevron-down"></use>
-                            </svg></div>
+                            </svg></span>
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
@@ -274,10 +282,10 @@
                 <div class="accordion-item">
                     <button class="accordion-header">
                         Оказываете ли вы техническую поддержку?
-                        <div class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        <span class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 width="16">
                                 <use href="media/icons/chevron-down.svg#chevron-down"></use>
-                            </svg></div>
+                            </svg></span>
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
@@ -290,10 +298,10 @@
                 <div class="accordion-item">
                     <button class="accordion-header">
                         Возможно ли внести изменения в живой проект?
-                        <div class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        <span class="accordion-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 width="16">
                                 <use href="media/icons/chevron-down.svg#chevron-down"></use>
-                            </svg></div>
+                            </svg></span>
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
@@ -314,15 +322,15 @@
             </a>
 
             <div class="socials">
-                <a href="#" class="social-link" aria-label="Telegram"><svg fill="none" stroke="currentColor"
+                <a href="#" class="social-link" rel="noopener" aria-label="Telegram"><svg fill="none" stroke="currentColor"
                         viewBox="0 0 24 24" width="20">
                         <use href="media/icons/telegram.svg#telegram"></use>
                     </svg></a>
-                <a href="#" class="social-link" aria-label="Twitter"><svg fill="none" stroke="currentColor"
+                <a href="#" class="social-link" rel="noopener" aria-label="Twitter"><svg fill="none" stroke="currentColor"
                         viewBox="0 0 24 24" width="20">
                         <use href="media/icons/twitter.svg#twitter"></use>
                     </svg></a>
-                <a href="#" class="social-link" aria-label="LinkedIn"><svg fill="none" stroke="currentColor"
+                <a href="#" class="social-link" rel="noopener" aria-label="LinkedIn"><svg fill="none" stroke="currentColor"
                         viewBox="0 0 24 24" width="20">
                         <use href="media/icons/linkedin.svg#linkedin"></use>
                     </svg></a>
@@ -353,6 +361,7 @@
 
                 <div class="input-float">
                     <select id="edit-category" class="form__input" required>
+                        <option value="" disabled selected>Выберите категорию</option>
                         <option value="Web Platform">Web Платформы</option>
                         <option value="Mobile App">Мобильные приложения</option>
                         <option value="Enterprise System">Корпоративные системы</option>
