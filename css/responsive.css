@@ -1,6 +1,7 @@
 /* =========================================================================
       RESPONSIVE
       ========================================================================= */
+/* Tablet and small laptops */
 @media (max-width: 768px) {
     .container {
         padding-inline: 24px;
@@ -97,6 +98,7 @@
     }
 }
 
+/* Mobile phones */
 @media (max-width: 480px) {
     .container {
         padding-inline: 16px;

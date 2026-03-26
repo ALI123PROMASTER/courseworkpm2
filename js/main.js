@@ -1,21 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- 0. ЛОГИКА АКТИВНЫХ ССЫЛОК ПРИ СКРОЛЛЕ (Scroll Spy) ---
-  // Находим все секции, у которых есть id
-  const sections = document.querySelectorAll("section[id]");
-  // Находим все ссылки в навигации, которые ведут на якоря (#) или на главную страницу
-  const navLinks = document.querySelectorAll(
-    '.nav__list a[href^="#"], .nav__list a[href="index.html"]',
-  );
+  // =============================
+  // Общие утилиты
+  // =============================
   const getIconHref = window.getIconHref
     ? window.getIconHref
     : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
+
   const createIcon = (symbolId, attributes) =>
     `<svg ${attributes}><use href="${getIconHref(symbolId)}"></use></svg>`;
 
-  function highlightNavigation() {
-    let scrollY = window.pageYOffset;
+  function showToast(message, type = "success") {
+    const container = document.getElementById("toast-container");
+    if (!container) return;
 
-    // Если находимся в самом верху (скролл меньше 100px), подсвечиваем ссылку на главную
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    const icon =
+      type === "success"
+        ? createIcon(
+            "check",
+            'fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"',
+          )
+        : createIcon(
+            "alert",
+            'fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"',
+          );
+
+    toast.innerHTML = `${icon} <span>${message}</span>`;
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => toast.classList.add("show"));
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  }
+
+  function formatNumber(num) {
+    return new Intl.NumberFormat("en-US").format(num);
+  }
+
+  // =============================
+  // Scroll Spy (активная ссылка меню)
+  // =============================
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(
+    '.nav__list a[href^="#"], .nav__list a[href="index.html"]',
+  );
+
+  function highlightNavigation() {
+    const scrollY = window.pageYOffset;
+
     if (scrollY < 100) {
       navLinks.forEach((link) => {
         link.classList.remove("nav__link--active");
@@ -29,18 +64,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Перебираем все секции, чтобы узнать, какая сейчас в зоне видимости экрана
-    sections.forEach((current) => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 150; // Отступ (компенсация высоты фиксированной шапки)
-      const sectionId = current.getAttribute("id");
+    sections.forEach((section) => {
+      const sectionHeight = section.offsetHeight;
+      const sectionTop = section.offsetTop - 150;
+      const sectionId = section.getAttribute("id");
 
-      // Если текущая позиция скролла находится внутри секции
       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
         navLinks.forEach((link) => {
           link.classList.remove("nav__link--active");
-          // Находим ссылку, которая ссылается на этот id и делаем ее активной
-          if (link.getAttribute("href") === "#" + sectionId) {
+          if (link.getAttribute("href") === `#${sectionId}`) {
             link.classList.add("nav__link--active");
           }
         });
@@ -50,137 +82,97 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (sections.length > 0) {
     window.addEventListener("scroll", highlightNavigation);
-    // Вызываем сразу при загрузке, чтобы установить правильное состояние
     highlightNavigation();
   }
 
-  // --- 1. ЛОГИКА ОТРИСОВКИ КАРТОЧЕК ПРОЕКТОВ ---
+  // =============================
+  // Карточки проектов (рендер + фильтры)
+  // =============================
   const projectsGrid = document.getElementById("projects-grid");
   const searchInput = document.getElementById("search-input");
   const categoryFilter = document.getElementById("category-filter");
   const noResults = document.getElementById("no-results");
 
-  // Система всплывающих уведомлений (Toast)
-  function showToast(message, type = "success") {
-    const container = document.getElementById("toast-container");
-    if (!container) return;
-
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-
-    // Выбираем иконку (галочка или крестик) в зависимости от типа
-    const icon =
-      type === "success"
-        ? createIcon(
-            "check",
-            'fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"',
-          )
-        : createIcon(
-            "alert",
-            'fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"',
-          );
-
-    toast.innerHTML = `${icon} <span>${message}</span>`;
-
-    container.appendChild(toast);
-
-    // Запускаем анимацию появления через RequestAnimationFrame (чтобы браузер успел отрисовать DOM)
-    requestAnimationFrame(() => toast.classList.add("show"));
-
-    setTimeout(() => {
-      toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 400); // Wait for transition
-    }, 3000);
-  }
-
-  function formatNumber(num) {
-    return new Intl.NumberFormat("en-US").format(num);
-  }
-
-  // Главная функция отрисовки карточек
   function renderCards() {
     if (!projectsGrid) return;
 
-    const data = getData(); // Получаем данные из LocalStorage (из storage.js)
+    const data = getData();
     const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
     const filterCategory = categoryFilter ? categoryFilter.value : "all";
 
-    // Логика фильтрации (Живой поиск)
     const filteredData = data.filter((item) => {
       const matchesSearch =
         item.title.toLowerCase().includes(searchTerm) ||
         item.description.toLowerCase().includes(searchTerm);
-      const matchesCat =
+      const matchesCategory =
         filterCategory === "all" || item.category === filterCategory;
-      return matchesSearch && matchesCat;
+      return matchesSearch && matchesCategory;
     });
 
     projectsGrid.innerHTML = "";
 
     if (filteredData.length === 0) {
       if (noResults) noResults.style.display = "block";
-    } else {
-      if (noResults) noResults.style.display = "none";
-
-      filteredData.forEach((project) => {
-        const card = document.createElement("div");
-        card.className = "card glass animate-on-scroll";
-
-        const isChecked = project.status === "Готово" ? "checked" : "";
-
-        // Escape user data to prevent XSS
-        const safeCategory = window.escapeHTML(project.category);
-        const safeTitle = window.escapeHTML(project.title);
-        const safeDesc = window.escapeHTML(project.description) || "Нет описания";
-        const safeDate = window.escapeHTML(project.date);
-        const safeStatus = window.escapeHTML(project.status);
-
-        card.innerHTML = `
-                    <div class="card__header">
-                        <span class="badge badge--category">${safeCategory}</span>
-                        <div class="status-toggle" title="Отметить статус">
-                            <input type="checkbox" class="status-checkbox" data-id="${project.id}" ${isChecked} aria-label="Отметить проект как выполненный">
-                        </div>
-                    </div>
-                    <h3 class="card__title">${safeTitle}</h3>
-                    <p class="card__desc">${safeDesc}</p>
-                    
-                    <div class="card__meta">
-                        <span class="card__date">Срок: ${safeDate}</span>
-                        <span class="card__price">$${formatNumber(project.price || 0)}</span>
-                    </div>
-                    
-                    <div class="card__footer">
-                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Статус: <strong style="color: ${isChecked ? "var(--success)" : "var(--warning)"}">${safeStatus}</strong></span>
-                        <div class="card__actions">
-                            <button class="btn-icon btn-edit" data-id="${project.id}" aria-label="Редактировать">
-                                ${createIcon("edit", 'fill="none" stroke="currentColor" viewBox="0 0 24 24"')}
-                            </button>
-                            <button class="btn-icon delete btn-delete" data-id="${project.id}" aria-label="Удалить">
-                                ${createIcon("trash", 'fill="none" stroke="currentColor" viewBox="0 0 24 24"')}
-                            </button>
-                        </div>
-                    </div>
-                `;
-        projectsGrid.appendChild(card);
-      });
-      
-      // Re-initialize scroll animations for the new cards
-      window.initScrollAnimations?.();
+      return;
     }
+
+    if (noResults) noResults.style.display = "none";
+
+    filteredData.forEach((project) => {
+      const card = document.createElement("div");
+      card.className = "card glass animate-on-scroll";
+
+      const isChecked = project.status === "Готово" ? "checked" : "";
+      const safeCategory = window.escapeHTML(project.category);
+      const safeTitle = window.escapeHTML(project.title);
+      const safeDesc = window.escapeHTML(project.description) || "Нет описания";
+      const safeDate = window.escapeHTML(project.date);
+      const safeStatus = window.escapeHTML(project.status);
+
+      card.innerHTML = `
+        <div class="card__header">
+          <span class="badge badge--category">${safeCategory}</span>
+          <div class="status-toggle" title="Отметить статус">
+            <input type="checkbox" class="status-checkbox" data-id="${project.id}" ${isChecked} aria-label="Отметить проект как выполненный">
+          </div>
+        </div>
+        <h3 class="card__title">${safeTitle}</h3>
+        <p class="card__desc">${safeDesc}</p>
+
+        <div class="card__meta">
+          <span class="card__date">Срок: ${safeDate}</span>
+          <span class="card__price">$${formatNumber(project.price || 0)}</span>
+        </div>
+
+        <div class="card__footer">
+          <span style="font-size: 0.85rem; color: var(--text-secondary);">Статус: <strong style="color: ${isChecked ? "var(--success)" : "var(--warning)"}">${safeStatus}</strong></span>
+          <div class="card__actions">
+            <button class="btn-icon btn-edit" data-id="${project.id}" aria-label="Редактировать">
+              ${createIcon("edit", 'fill="none" stroke="currentColor" viewBox="0 0 24 24"')}
+            </button>
+            <button class="btn-icon delete btn-delete" data-id="${project.id}" aria-label="Удалить">
+              ${createIcon("trash", 'fill="none" stroke="currentColor" viewBox="0 0 24 24"')}
+            </button>
+          </div>
+        </div>
+      `;
+
+      projectsGrid.appendChild(card);
+    });
+
+    window.initScrollAnimations?.();
   }
 
-  // Слушатели для фильтров
   if (searchInput) searchInput.addEventListener("input", renderCards);
   if (categoryFilter) categoryFilter.addEventListener("change", renderCards);
 
-  // --- 2. ЛОГИКА МОДАЛЬНОГО ОКНА (Редактирование) ---
+  // =============================
+  // Модальное окно редактирования
+  // =============================
   const modal = document.getElementById("edit-modal");
   const closeBtn = document.getElementById("close-modal");
   const cancelBtn = document.getElementById("cancel-modal");
   const editForm = document.getElementById("edit-form");
-
-  // Поля формы внутри модального окна
   const editId = document.getElementById("edit-id");
   const editTitle = document.getElementById("edit-title");
   const editCategory = document.getElementById("edit-category");
@@ -188,6 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const editDesc = document.getElementById("edit-desc");
 
   function openModal(id) {
+    if (!modal) return;
+
     const data = getData();
     const project = data.find((item) => item.id === id);
     if (!project) return;
@@ -199,10 +193,11 @@ document.addEventListener("DOMContentLoaded", () => {
     editDesc.value = project.description || "";
 
     modal.classList.add("active");
-    document.body.style.overflow = "hidden"; // Prevent scrolling
+    document.body.style.overflow = "hidden";
   }
 
   function closeModal() {
+    if (!modal) return;
     modal.classList.remove("active");
     document.body.style.overflow = "";
   }
@@ -220,29 +215,28 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const id = Number(editId.value);
-      let data = getData();
+      const data = getData();
       const index = data.findIndex((item) => item.id === id);
 
-      if (index !== -1) {
-        data[index].title = editTitle.value.trim();
-        data[index].category = editCategory.value;
-        data[index].price = Number(editPrice.value);
-        data[index].description = editDesc.value.trim();
+      if (index === -1) return;
 
-        saveData(data);
-        renderCards();
-        closeModal();
-        showToast("Проект успешно обновлен!");
-      }
+      data[index].title = editTitle.value.trim();
+      data[index].category = editCategory.value;
+      data[index].price = Number(editPrice.value);
+      data[index].description = editDesc.value.trim();
+
+      saveData(data);
+      renderCards();
+      closeModal();
+      showToast("Проект успешно обновлен!");
     });
   }
 
-  // --- 3. ДЕЛЕГИРОВАНИЕ СОБЫТИЙ (Сетка проектов) ---
-  // Вешаем один слушатель на всю сетку (Pattern: Event Delegation),
-  // чтобы не вешать десятки слушателей на каждую кнопку карточки отдельно
+  // =============================
+  // Делегирование событий карточек
+  // =============================
   if (projectsGrid) {
     projectsGrid.addEventListener("click", (e) => {
-      // Ищем ближайшего родителя с нужным классом, если кликнули по иконке внутри кнопки
       const deleteBtn = e.target.closest(".btn-delete");
       const editBtn = e.target.closest(".btn-edit");
 
@@ -253,9 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "Вы уверены, что хотите удалить этот проект? Это действие необратимо.",
           )
         ) {
-          let data = getData();
-          data = data.filter((item) => item.id !== id);
-          saveData(data);
+          const nextData = getData().filter((item) => item.id !== id);
+          saveData(nextData);
           renderCards();
           showToast("Проект удален");
         }
@@ -268,35 +261,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     projectsGrid.addEventListener("change", (e) => {
-      if (e.target.classList.contains("status-checkbox")) {
-        const id = Number(e.target.getAttribute("data-id"));
-        const isChecked = e.target.checked;
-        let data = getData();
-        const index = data.findIndex((item) => item.id === id);
-        if (index !== -1) {
-          data[index].status = isChecked ? "Готово" : "В работе";
-          saveData(data);
-          renderCards(); // Re-render to update the status text
-          showToast(`Статус изменен на "${data[index].status}"`);
-        }
-      }
+      if (!e.target.classList.contains("status-checkbox")) return;
+
+      const id = Number(e.target.getAttribute("data-id"));
+      const isChecked = e.target.checked;
+      const data = getData();
+      const index = data.findIndex((item) => item.id === id);
+
+      if (index === -1) return;
+
+      data[index].status = isChecked ? "Готово" : "В работе";
+      saveData(data);
+      renderCards();
+      showToast(`Статус изменен на "${data[index].status}"`);
     });
   }
 
-  // --- 4. UI ENHANCEMENTS & ANIMATIONS ---
-
-  // Scroll Animations using Intersection Observer - Moved to global storage.js
-
-  // Theme Toggle and Mobile Menu moved to global storage.js
-
-  // FAQ Accordion
+  // =============================
+  // FAQ аккордеон
+  // =============================
   const accordionHeaders = document.querySelectorAll(".accordion-header");
   accordionHeaders.forEach((header) => {
     header.addEventListener("click", () => {
       const item = header.parentElement;
       const content = item.querySelector(".accordion-content");
 
-      // Close others
       document.querySelectorAll(".accordion-item").forEach((otherItem) => {
         if (otherItem !== item && otherItem.classList.contains("active")) {
           otherItem.classList.remove("active");
@@ -304,7 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // Toggle current
       item.classList.toggle("active");
       if (item.classList.contains("active")) {
         content.style.maxHeight = content.scrollHeight + "px";
@@ -314,6 +302,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initial render
   renderCards();
 });

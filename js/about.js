@@ -1,88 +1,80 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Темы и мобильное меню обрабатываются глобально в storage.js
+document.addEventListener("DOMContentLoaded", () => {
+  // =============================
+  // Калькулятор стоимости
+  // =============================
+  const typeSel = document.getElementById("calc-type");
+  const pagesRange = document.getElementById("calc-pages");
+  const pagesVal = document.getElementById("pages-val");
+  const seoCheck = document.getElementById("calc-seo");
+  const copyCheck = document.getElementById("calc-copy");
+  const priceEl = document.getElementById("total-price");
 
-    // Настройка анимации появления контента при скролле (Intersection Observer)
-    // Перенесено в глобальный storage.js
+  const basePrices = {
+    landing: 500,
+    corporate: 1200,
+    ecommerce: 2500,
+    saas: 5000,
+  };
 
-    // ------------- ЛОГИКА КАЛЬКУЛЯТОРА СТОИМОСТИ ------------- //
-    const typeSel = document.getElementById('calc-type');
-    const pagesRange = document.getElementById('calc-pages');
-    const pagesVal = document.getElementById('pages-val');
-    const seoCheck = document.getElementById('calc-seo');
-    const copyCheck = document.getElementById('calc-copy');
-    const priceEl = document.getElementById('total-price');
+  let currentVal = 0;
 
-    // Базовые ставки для разных типов сайтов
-    const basePrices = {
-        'landing': 500,
-        'corporate': 1200,
-        'ecommerce': 2500,
-        'saas': 5000
+  function calculateLogic() {
+    if (!typeSel) return 0;
+
+    const base = basePrices[typeSel.value] || 0;
+    const extraPages = parseInt(pagesRange.value, 10) - 1;
+    const pagesCost = extraPages > 0 ? extraPages * 50 : 0;
+    const seo = seoCheck.checked ? 300 : 0;
+    const copy = copyCheck.checked ? 500 : 0;
+
+    return base + pagesCost + seo + copy;
+  }
+
+  function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 4);
+      const currentCalculated = Math.floor(start + (end - start) * easeOut);
+      obj.textContent = currentCalculated.toLocaleString("en-US");
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        obj.textContent = end.toLocaleString("en-US");
+      }
     };
 
-    let currentVal = 0;
+    window.requestAnimationFrame(step);
+  }
 
-    // Главная функция подсчета
-    function calculateLogic() {
-        if (!typeSel) return 0;
-        const base = basePrices[typeSel.value] || 0;
-        // Добавляем по $50 за каждую дополнительную страницу (предполагаем, что 1 страница включена в базовую цену)
-        const extraPages = parseInt(pagesRange.value) - 1;
-        const pagesCost = extraPages > 0 ? extraPages * 50 : 0;
+  function updatePrice(animate = true) {
+    if (!priceEl) return;
 
-        const seo = seoCheck.checked ? 300 : 0;
-        const copy = copyCheck.checked ? 500 : 0;
+    const newTotal = calculateLogic();
+    pagesVal.textContent = pagesRange.value;
 
-        return base + pagesCost + seo + copy;
+    if (animate && currentVal !== newTotal) {
+      animateValue(priceEl, currentVal, newTotal, 800);
+    } else {
+      priceEl.textContent = newTotal.toLocaleString("en-US");
     }
 
-    // Анимация бегущих цифр суммы (от start до end за duration мс)
-    function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            // Математическая формула easeOutQuart для плавного замедления в конце анимации
-            const easeOut = 1 - Math.pow(1 - progress, 4);
-            const currentCalculated = Math.floor(start + (end - start) * easeOut);
-            obj.textContent = currentCalculated.toLocaleString('en-US');
+    currentVal = newTotal;
+  }
 
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                // В самом конце убеждаемся, что цифра точная и правильно отформатирована с запятыми
-                obj.textContent = end.toLocaleString('en-US');
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
+  if (!typeSel) return;
 
-    function updatePrice(animate = true) {
-        if (!priceEl) return;
-        const newTotal = calculateLogic();
-        pagesVal.textContent = pagesRange.value;
+  typeSel.addEventListener("change", () => updatePrice(true));
+  seoCheck.addEventListener("change", () => updatePrice(true));
+  copyCheck.addEventListener("change", () => updatePrice(true));
 
-        if (animate && currentVal !== newTotal) {
-            animateValue(priceEl, currentVal, newTotal, 800);
-        } else {
-            priceEl.textContent = newTotal.toLocaleString('en-US');
-        }
-        currentVal = newTotal;
-    }
+  pagesRange.addEventListener("input", () => {
+    pagesVal.textContent = pagesRange.value;
+    updatePrice(false);
+  });
 
-    if (typeSel) {
-        // Слушатели событий изменений (чекбоксы и селект пересчитывают цену с анимацией)
-        typeSel.addEventListener('change', () => updatePrice(true));
-        seoCheck.addEventListener('change', () => updatePrice(true));
-        copyCheck.addEventListener('change', () => updatePrice(true));
-
-        // Для ползунка количества страниц мы считаем вживую без анимации, так как она будет дергаться при быстрых движениях ползунка
-        pagesRange.addEventListener('input', () => {
-            pagesVal.textContent = pagesRange.value;
-            updatePrice(false); // пересчитываем сразу напрямую
-        });
-
-        // Первичный подсчет при загрузке страницы
-        updatePrice(true);
-    }
+  updatePrice(true);
 });

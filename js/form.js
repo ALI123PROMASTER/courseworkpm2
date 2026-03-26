@@ -1,16 +1,43 @@
+// =============================
+// Вспомогательные стили
+// =============================
+function ensureShakeKeyframes() {
+  if (document.getElementById("shake-keyframes")) return;
+
+  const style = document.createElement("style");
+  style.id = "shake-keyframes";
+  style.innerHTML = `
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Theme setup and burger menu handled by global storage.js
+  // =============================
+  // Инициализация
+  // =============================
+  ensureShakeKeyframes();
 
   const form = document.getElementById("project-form");
   const cancelBtn = document.getElementById("btn-cancel");
+  if (!form || !cancelBtn) return;
+
   const rootIndexPath = window.location.pathname.includes("/pages/")
     ? "../index.html"
     : "index.html";
+
   const getIconHref = window.getIconHref
     ? window.getIconHref
     : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
 
-  // Функция отображения уведомлений (всплывающие тосты)
+  // =============================
+  // UI: уведомления
+  // =============================
   function showToast(message, type = "error") {
     const container = document.getElementById("toast-container");
     if (!container) return;
@@ -29,18 +56,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 4000);
   }
 
-  // Обработчик отправки формы (сабмит)
-  form.addEventListener("submit", (e) => {
-    // Предотвращаем стандартное поведение формы (перезагрузку страницы)
-    e.preventDefault();
+  // =============================
+  // Валидация формы
+  // =============================
+  function getFormFields() {
+    return {
+      titleEl: document.getElementById("title"),
+      categoryEl: document.getElementById("category"),
+      dateEl: document.getElementById("date"),
+      priceEl: document.getElementById("price"),
+      descEl: document.getElementById("desc"),
+    };
+  }
 
-    const titleEl = document.getElementById("title");
-    const categoryEl = document.getElementById("category");
-    const dateEl = document.getElementById("date");
-    const priceEl = document.getElementById("price");
-    const descEl = document.getElementById("desc");
+  function validateForm(fields) {
+    const { titleEl, categoryEl, dateEl, priceEl, descEl } = fields;
 
-    // Сбрасываем старые ошибки перед новой проверкой
     [titleEl, categoryEl, dateEl, priceEl, descEl].forEach((el) =>
       el.classList.remove("error"),
     );
@@ -74,32 +105,44 @@ document.addEventListener("DOMContentLoaded", () => {
       isValid = false;
     }
 
-    if (!isValid) {
-      errorMessage = errorMessage.slice(0, -1); // удаляем последнюю запятую
-      showToast(errorMessage);
-      // Визуальная анимация "встряхивания" формы при ошибке
+    return {
+      isValid,
+      errorMessage: errorMessage.slice(0, -1),
+    };
+  }
+
+  // =============================
+  // События формы
+  // =============================
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const fields = getFormFields();
+    const validation = validateForm(fields);
+
+    if (!validation.isValid) {
+      showToast(validation.errorMessage);
       form.style.animation = "shake 0.5s";
-      setTimeout(() => (form.style.animation = ""), 500);
+      setTimeout(() => {
+        form.style.animation = "";
+      }, 500);
       return;
     }
 
-    // Формируем объект нового проекта
     const newProject = {
-      id: crypto.randomUUID(), // Используем crypto.randomUUID() как уникальный генератор ID
-      title: titleEl.value.trim(),
-      category: categoryEl.value,
-      date: dateEl.value,
-      price: Number(priceEl.value),
-      description: descEl.value.trim(),
+      id: crypto.randomUUID(),
+      title: fields.titleEl.value.trim(),
+      category: fields.categoryEl.value,
+      date: fields.dateEl.value,
+      price: Number(fields.priceEl.value),
+      description: fields.descEl.value.trim(),
       status: "В работе",
     };
 
-    // Получаем текущие данные, добавляем новый проект и сохраняем обратно
-    let data = getData();
+    const data = getData();
     data.push(newProject);
     saveData(data);
 
-    // Симуляция успешной загрузки (меняем текст кнопки)
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.innerHTML = "Сохранение...";
     submitBtn.style.opacity = "0.7";
@@ -113,14 +156,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = rootIndexPath;
   });
 });
-
-// Adding a global shake style programmatically for the form validation
-const style = document.createElement("style");
-style.innerHTML = `
-    @keyframes shake {
-        0%, 100% {transform: translateX(0);}
-        10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
-        20%, 40%, 60%, 80% {transform: translateX(5px);}
-    }
-`;
-document.head.appendChild(style);

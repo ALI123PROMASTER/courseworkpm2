@@ -1,8 +1,8 @@
-// Ключ для сохранения данных в LocalStorage браузера
+// =============================
+// LocalStorage: данные проектов
+// =============================
 const STORAGE_KEY = "it_company_projects_premium";
 
-// Функция возвращает начальный (дефолтный) массив данных с проектами
-// Это нужно для того, чтобы при первом запуске сайта он не был пустым
 function getInitialData() {
   return [
     {
@@ -68,28 +68,25 @@ function getInitialData() {
   ];
 }
 
-// Функция получения данных из LocalStorage
 function getData() {
-  // Пытаемся получить строку с данными по ключу
   const data = localStorage.getItem(STORAGE_KEY);
-  // Если данных еще нет (первый вход пользователя)
+
   if (!data) {
-    // Получаем дефолтные данные
     const initialData = getInitialData();
-    // Сохраняем их в LocalStorage для будущих сессий
     saveData(initialData);
     return initialData;
   }
-  // Если данные есть, преобразуем их из JSON-строки обратно в массив объектов (парсим)
+
   return JSON.parse(data);
 }
 
-// Функция сохранения данных в LocalStorage
 function saveData(data) {
-  // Преобразуем массив объектов в JSON-строку, так как LocalStorage хранит только строки
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+// =============================
+// Иконки и пути к ресурсам
+// =============================
 function getPathPrefix() {
   return window.location.pathname.includes("/pages/") ? "../" : "";
 }
@@ -105,18 +102,23 @@ function buildIcon(symbolId, attributes) {
 window.getIconHref = getIconHref;
 window.buildIcon = buildIcon;
 
-window.escapeHTML = function(str) {
-  if (typeof str !== 'string') return str;
+// =============================
+// Глобальные утилиты
+// =============================
+window.escapeHTML = function (str) {
+  if (typeof str !== "string") return str;
+
   return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 };
 
-window.initScrollAnimations = function() {
+window.initScrollAnimations = function () {
   const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+
   const observer = new IntersectionObserver((entries, observerObj) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -131,14 +133,11 @@ window.initScrollAnimations = function() {
     .forEach((el) => observer.observe(el));
 };
 
-// Глобальная логика UI (Переключение темы, Бургер-меню, Липкая шапка), которая работает на всех страницах
-document.addEventListener("DOMContentLoaded", () => {
-  window.initScrollAnimations();
-
-  // --- НАСТРОЙКА ТЕМЫ ---
-  // Получаем сохраненную тему или устанавливаем 'dark' по умолчанию
+// =============================
+// UI: общая инициализация
+// =============================
+function initThemeToggle() {
   const savedTheme = localStorage.getItem("theme") || "dark";
-  // Устанавливаем атрибут data-theme корневому элементу <html> (к нему привязаны CSS переменные)
   document.documentElement.setAttribute("data-theme", savedTheme);
 
   const themeToggle = document.getElementById("theme-toggle");
@@ -151,75 +150,70 @@ document.addEventListener("DOMContentLoaded", () => {
     'fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"',
   );
 
-  if (themeToggle) {
-    // Устанавливаем иконку (луна или солнце) при загрузке страницы
-    themeToggle.innerHTML = savedTheme === "dark" ? moonIcon : sunIcon;
+  if (!themeToggle) return;
 
-    // Слушатель клика на кнопку переключения темы
-    themeToggle.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
+  themeToggle.innerHTML = savedTheme === "dark" ? moonIcon : sunIcon;
 
-      // Применяем новую тему и сохраняем ее в LocalStorage
-      document.documentElement.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
 
-      // Update icon
-      themeToggle.innerHTML = newTheme === "dark" ? moonIcon : sunIcon;
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
 
-      // Optional: small pop animation instead of full spin
-      themeToggle.style.transform = "scale(0.8)";
-      setTimeout(() => {
-        themeToggle.style.transform = "scale(1)";
-      }, 150);
-    });
-  }
+    themeToggle.innerHTML = newTheme === "dark" ? moonIcon : sunIcon;
 
-  // --- БУРГЕР МЕНЮ ---
-  // Логика мобильного меню
+    themeToggle.style.transform = "scale(0.8)";
+    setTimeout(() => {
+      themeToggle.style.transform = "scale(1)";
+    }, 150);
+  });
+}
+
+function initBurgerMenu() {
   const burger = document.getElementById("burger");
   const navList = document.getElementById("nav-list");
-  if (burger && navList) {
-    // Удаляем старые слушатели кликов, чтобы избежать дублирования (путем пересоздания узла)
-    const newBurger = burger.cloneNode(true);
-    burger.parentNode.replaceChild(newBurger, burger);
+  if (!burger || !navList) return;
 
-    // При клике на бургер переключаем классы открытия (крестик и выдвижение меню)
-    newBurger.addEventListener("click", () => {
-      newBurger.classList.toggle("active");
-      navList.classList.toggle("open");
+  const newBurger = burger.cloneNode(true);
+  burger.parentNode.replaceChild(newBurger, burger);
+
+  newBurger.addEventListener("click", () => {
+    newBurger.classList.toggle("active");
+    navList.classList.toggle("open");
+  });
+
+  const navLinks = document.querySelectorAll(".nav__link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      navLinks.forEach((nav) => nav.classList.remove("nav__link--active"));
+      this.classList.add("nav__link--active");
+
+      newBurger.classList.remove("active");
+      navList.classList.remove("open");
     });
+  });
+}
 
-    // Обработчик клика по ссылкам в меню
-    const navLinks = document.querySelectorAll(".nav__link");
-    navLinks.forEach((link) => {
-      link.addEventListener("click", function () {
-        // Убираем активный класс у всех ссылок и ставим текущей
-        navLinks.forEach((nav) => nav.classList.remove("nav__link--active"));
-        this.classList.add("nav__link--active");
-
-        // Закрываем мобильное меню при клике на любую ссылку (чтобы перейти к секции)
-        newBurger.classList.remove("active");
-        navList.classList.remove("open");
-      });
-    });
-  }
-
-  // --- ЛИПКАЯ ШАПКА (Скролл) ---
+function initStickyHeader() {
   const header = document.getElementById("header");
-  if (header) {
-    // Отслеживаем скролл окна с гистерезисом (защита от дребезга)
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
-      const isScrolled = header.classList.contains("scrolled");
+  if (!header) return;
 
-      if (!isScrolled && scrollY > 50) {
-        // Включаем "липкий" режим при прокрутке ниже 50px
-        header.classList.add("scrolled");
-      } else if (isScrolled && scrollY < 10) {
-        // Выключаем только при возврате выше 10px
-        header.classList.remove("scrolled");
-      }
-    });
-  }
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const isScrolled = header.classList.contains("scrolled");
+
+    if (!isScrolled && scrollY > 50) {
+      header.classList.add("scrolled");
+    } else if (isScrolled && scrollY < 10) {
+      header.classList.remove("scrolled");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  window.initScrollAnimations();
+  initThemeToggle();
+  initBurgerMenu();
+  initStickyHeader();
 });
