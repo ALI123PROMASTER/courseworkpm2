@@ -4,9 +4,8 @@
 .hero {
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    padding-top: 0;
-    /* Header already pushes it down */
+    align-items: flex-start;
+    padding-top: clamp(90px, 12vh, 140px);
     position: relative;
 }
 
@@ -101,7 +100,6 @@
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
     border-color: var(--accent-1);
 }
 
@@ -172,7 +170,6 @@
 }
 
 .card:hover {
-    transform: translateY(-5px) scale(1.02);
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
     border-color: rgba(255, 255, 255, 0.2);
 }
@@ -322,8 +319,12 @@
     margin-top: 3rem;
 }
 
+.partners .section-title {
+    font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+}
+
 .partner-logo {
-    font-size: 1.8rem;
+    font-size: clamp(1.9rem, 2.2vw, 2.2rem);
     font-weight: 800;
     color: var(--text-secondary);
     opacity: 0.5;
@@ -336,8 +337,8 @@
 }
 
 .partner-logo svg {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
 }
 
 .partner-logo:hover {
@@ -693,6 +694,15 @@
     border-radius: var(--radius-lg);
 }
 
+.calc-card-wrap select.form__input {
+    text-align: center;
+    text-align-last: center;
+}
+
+.calc-card-wrap select.form__input option {
+    text-align: center;
+}
+
 .calc-title {
     font-size: 1.8rem;
     margin-bottom: 2rem;
@@ -755,15 +765,22 @@
 }
 
 .form-page-main .input-float .form__input:not(textarea)+label {
-    top: 50%;
+    top: 0;
     transform: translateY(-50%);
     line-height: 1;
+    font-size: 0.74rem;
+    padding: 0 0.22rem;
+    border-radius: 2px;
+    background: var(--bg-color);
+    box-shadow: 0 0 0 1px var(--bg-color);
+    z-index: 1;
 }
 
 .form-page-main .input-float .form__input:not(textarea):focus+label,
 .form-page-main .input-float .form__input:not(textarea):not(:placeholder-shown)+label {
-    top: 0.3rem;
-    transform: none;
+    top: 0;
+    transform: translateY(-50%);
+    color: rgba(225, 29, 72, 0.88);
 }
 
 .form-page-main .input-float select.form__input,

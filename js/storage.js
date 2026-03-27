@@ -1,5 +1,5 @@
 // =============================
-// LocalStorage: данные проектов
+// API ХРАНИЛИЩА
 // =============================
 const STORAGE_KEY = "it_company_projects_premium";
 
@@ -85,7 +85,7 @@ function saveData(data) {
 }
 
 // =============================
-// Иконки и пути к ресурсам
+// ПУТИ И ИКОНКИ
 // =============================
 function getPathPrefix() {
   return window.location.pathname.includes("/pages/") ? "../" : "";
@@ -103,7 +103,7 @@ window.getIconHref = getIconHref;
 window.buildIcon = buildIcon;
 
 // =============================
-// Глобальные утилиты
+// ГЛОБАЛЬНЫЕ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 // =============================
 window.escapeHTML = function (str) {
   if (typeof str !== "string") return str;
@@ -134,7 +134,7 @@ window.initScrollAnimations = function () {
 };
 
 // =============================
-// UI: общая инициализация
+// ИНИЦИАЛИЗАЦИЯ UI
 // =============================
 function initThemeToggle() {
   const savedTheme = localStorage.getItem("theme") || "dark";

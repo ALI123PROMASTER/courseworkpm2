@@ -19,7 +19,7 @@ function ensureShakeKeyframes() {
 
 document.addEventListener("DOMContentLoaded", () => {
   // =============================
-  // Инициализация
+  // НАСТРОЙКИ / СОСТОЯНИЕ
   // =============================
   ensureShakeKeyframes();
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
 
   // =============================
-  // UI: уведомления
+  // UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
   // =============================
   function showToast(message, type = "error") {
     const container = document.getElementById("toast-container");
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =============================
-  // Валидация формы
+  // ВАЛИДАЦИЯ
   // =============================
   function getFormFields() {
     return {
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =============================
-  // События формы
+  // СОБЫТИЯ ФОРМЫ
   // =============================
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -155,4 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
   cancelBtn.addEventListener("click", () => {
     window.location.href = rootIndexPath;
   });
+
+  // =============================
+  // ИНИЦИАЛИЗАЦИЯ
+  // =============================
 });

@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   // =============================
-  // НАСТРОЙКИ / ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-  // =============================
-  // =============================
   // Общие утилиты
   // =============================
   const getIconHref = window.getIconHref
@@ -44,20 +41,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =============================
-  // НАВИГАЦИЯ (Scroll Spy)
+  // Scroll Spy (активная ссылка меню)
   // =============================
   const sections = document.querySelectorAll("section[id]");
-  const sectionNavLinks = document.querySelectorAll('.nav__list a[href^="#"]');
+  const navLinks = document.querySelectorAll(
+    '.nav__list a[href^="#"], .nav__list a[href="index.html"]',
+  );
 
   function highlightNavigation() {
-    if (sectionNavLinks.length === 0) return;
-
     const scrollY = window.pageYOffset;
 
     if (scrollY < 100) {
-      sectionNavLinks.forEach((link) => {
+      navLinks.forEach((link) => {
         link.classList.remove("nav__link--active");
-        if (link.getAttribute("href") === "#home") {
+        if (
+          link.getAttribute("href") === "index.html" ||
+          link.getAttribute("href") === "#home"
+        ) {
           link.classList.add("nav__link--active");
         }
       });
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const sectionId = section.getAttribute("id");
 
       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        sectionNavLinks.forEach((link) => {
+        navLinks.forEach((link) => {
           link.classList.remove("nav__link--active");
           if (link.getAttribute("href") === `#${sectionId}`) {
             link.classList.add("nav__link--active");
@@ -80,45 +80,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // На страницах с обычными ссылками между HTML-файлами scroll-spy не нужен.
-  if (sections.length > 0 && sectionNavLinks.length > 0) {
+  if (sections.length > 0) {
     window.addEventListener("scroll", highlightNavigation);
     highlightNavigation();
   }
 
   // =============================
-  // ПРОЕКТЫ (рендер + фильтры)
+  // Карточки проектов (рендер + фильтры)
   // =============================
   const projectsGrid = document.getElementById("projects-grid");
   const searchInput = document.getElementById("search-input");
   const categoryFilter = document.getElementById("category-filter");
   const noResults = document.getElementById("no-results");
 
-  function getActiveFilters() {
-    return {
-      searchTerm: searchInput ? searchInput.value.toLowerCase() : "",
-      filterCategory: categoryFilter ? categoryFilter.value : "all",
-    };
-  }
-
-  function matchesActiveFilters(project) {
-    const { searchTerm, filterCategory } = getActiveFilters();
-    const matchesSearch =
-      project.title.toLowerCase().includes(searchTerm) ||
-      project.description.toLowerCase().includes(searchTerm);
-    const matchesCategory =
-      filterCategory === "all" || project.category === filterCategory;
-    return matchesSearch && matchesCategory;
-  }
-
-  function createProjectCard(project, forceVisible = false) {
+  // Создание карточки проекта
+  function createProjectCard(project) {
     const card = document.createElement("div");
     card.className = "card glass animate-on-scroll";
     card.id = `card-${project.id}`;
-
-    if (forceVisible) {
-      card.classList.add("is-visible");
-    }
 
     const isChecked = project.status === "Готово" ? "checked" : "";
     const safeCategory = window.escapeHTML(project.category);
@@ -154,45 +133,24 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
-
     return card;
   }
 
-  function updateEmptyState() {
-    if (!noResults || !projectsGrid) return;
-    noResults.style.display =
-      projectsGrid.children.length === 0 ? "block" : "none";
-  }
-
-  function syncSingleCard(project) {
-    if (!projectsGrid) return;
-
-    const cardId = `card-${project.id}`;
-    const existingCard = document.getElementById(cardId);
-    const shouldBeVisible = matchesActiveFilters(project);
-
-    if (!shouldBeVisible) {
-      if (existingCard) existingCard.remove();
-      updateEmptyState();
-      return;
-    }
-
-    const newCard = createProjectCard(project, true);
-
+  // Обновление одной карточки
+  function updateProjectCard(project) {
+    const existingCard = document.getElementById(`card-${project.id}`);
     if (existingCard) {
+      const newCard = createProjectCard(project);
       existingCard.replaceWith(newCard);
-    } else {
-      projectsGrid.prepend(newCard);
     }
-
-    updateEmptyState();
   }
 
   function renderCards() {
     if (!projectsGrid) return;
 
     const data = getData();
-    const { searchTerm, filterCategory } = getActiveFilters();
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+    const filterCategory = categoryFilter ? categoryFilter.value : "all";
 
     const filteredData = data.filter((item) => {
       const matchesSearch =
@@ -223,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (categoryFilter) categoryFilter.addEventListener("change", renderCards);
 
   // =============================
-  // МОДАЛЬНОЕ ОКНО (редактирование)
+  // Модальное окно редактирования
   // =============================
   const modal = document.getElementById("edit-modal");
   const closeBtn = document.getElementById("close-modal");
@@ -282,14 +240,14 @@ document.addEventListener("DOMContentLoaded", () => {
       data[index].description = editDesc.value.trim();
 
       saveData(data);
-      syncSingleCard(data[index]);
+      updateProjectCard(data[index]);
       closeModal();
       showToast("Проект успешно обновлен!");
     });
   }
 
   // =============================
-  // СОБЫТИЯ ПРОЕКТОВ
+  // Делегирование событий карточек
   // =============================
   if (projectsGrid) {
     projectsGrid.addEventListener("click", (e) => {
@@ -307,7 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
           saveData(nextData);
           const card = document.getElementById(`card-${id}`);
           if (card) card.remove();
-          updateEmptyState();
           showToast("Проект удален");
         }
       }
@@ -330,13 +287,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       data[index].status = isChecked ? "Готово" : "В работе";
       saveData(data);
-      syncSingleCard(data[index]);
+      updateProjectCard(data[index]);
       showToast(`Статус изменен на "${data[index].status}"`);
     });
   }
 
   // =============================
-  // FAQ (АККОРДЕОН)
+  // FAQ аккордеон
   // =============================
   const accordionHeaders = document.querySelectorAll(".accordion-header");
   accordionHeaders.forEach((header) => {
@@ -360,8 +317,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // =============================
-  // ИНИЦИАЛИЗАЦИЯ
-  // =============================
   renderCards();
 });

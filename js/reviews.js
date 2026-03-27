@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // =============================
-  // Константы и стартовые данные
+  // НАСТРОЙКИ / СОСТОЯНИЕ
   // =============================
   const REVIEWS_KEY = "premium_reviews";
   const reviewsGrid = document.getElementById("reviews-grid");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let reviews = JSON.parse(localStorage.getItem(REVIEWS_KEY)) || defaultReviews;
 
   // =============================
-  // Работа с хранилищем
+  // ХРАНИЛИЩЕ
   // =============================
   function saveReviews() {
     localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
@@ -44,20 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =============================
-  // Отрисовка списка
+  // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ПРЕДСТАВЛЕНИЯ
   // =============================
-  function renderReviews() {
-    if (!reviewsGrid) return;
-    reviewsGrid.innerHTML = "";
+  function createReviewElement(review) {
+    const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+    const safeName = window.escapeHTML(review.name);
+    const safeText = window.escapeHTML(review.text);
 
-    reviews.forEach((review) => {
-      const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
-      const safeName = window.escapeHTML(review.name);
-      const safeText = window.escapeHTML(review.text);
-
-      const card = document.createElement("div");
-      card.className = "review-card animate-on-scroll";
-      card.innerHTML = `
+    const card = document.createElement("div");
+    card.className = "review-card animate-on-scroll";
+    card.id = `review-${review.id}`;
+    card.innerHTML = `
                 <div class="review-header">
                     <div class="review-author-info">
                         <div class="review-avatar">${safeName.charAt(0)}</div>
@@ -70,13 +67,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <p class="review-text">"${safeText}"</p>
             `;
+    return card;
+  }
 
-      reviewsGrid.appendChild(card);
+  // =============================
+  // ОТРИСОВКА
+  // =============================
+  function renderReviews() {
+    if (!reviewsGrid) return;
+    reviewsGrid.innerHTML = "";
+    reviews.forEach((review) => {
+      reviewsGrid.appendChild(createReviewElement(review));
     });
   }
 
   // =============================
-  // Форма добавления отзыва
+  // ИНКРЕМЕНТАЛЬНОЕ ОБНОВЛЕНИЕ
+  // =============================
+  function addReviewToDOM(review) {
+    if (!reviewsGrid) return;
+    const newCard = createReviewElement(review);
+    reviewsGrid.insertBefore(newCard, reviewsGrid.firstChild);
+    // Новый отзыв должен отображаться сразу, без ожидания повторной инициализации observer.
+    newCard.classList.add("is-visible");
+  }
+
+  // =============================
+  // СОБЫТИЯ ФОРМЫ
   // =============================
   if (reviewForm) {
     reviewForm.addEventListener("submit", (e) => {
@@ -105,11 +122,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
       reviews.unshift(newReview);
       saveReviews();
-      renderReviews();
+      addReviewToDOM(newReview);
+      lastReviewCount = reviews.length;
       reviewForm.reset();
       window.showToast?.("Спасибо! Ваш отзыв добавлен.", "success");
     });
   }
 
+  // =============================
+  // СИНХРОНИЗАЦИЯ МЕЖДУ ВКЛАДКАМИ
+  // =============================
+  let lastReviewCount = reviews.length;
+
+  window.addEventListener("storage", (e) => {
+    if (e.key !== REVIEWS_KEY || !e.newValue) return;
+
+    const newReviews = JSON.parse(e.newValue);
+    if (!Array.isArray(newReviews)) return;
+
+    if (newReviews.length > lastReviewCount) {
+      const addedReview = newReviews[0];
+      reviews = newReviews;
+      addReviewToDOM(addedReview);
+      lastReviewCount = newReviews.length;
+      window.showToast?.("Новый отзыв добавлен!", "success");
+      return;
+    }
+
+    reviews = newReviews;
+    lastReviewCount = newReviews.length;
+    renderReviews();
+  });
+
+  // =============================
+  // ИНИЦИАЛИЗАЦИЯ
+  // =============================
   renderReviews();
 });

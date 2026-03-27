@@ -39,11 +39,9 @@
 .btn--primary {
     background: var(--accent-gradient);
     color: white;
-    box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
 }
 
 .btn--primary:hover {
-    box-shadow: 0 6px 25px rgba(225, 29, 72, 0.5);
     transform: translateY(-2px);
 }
 
@@ -119,6 +117,11 @@
     gap: 1rem;
     margin-top: 1rem;
     width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .modal__actions .btn {
@@ -241,7 +244,7 @@
 .input-float label {
     position: absolute;
     left: 1rem;
-    top: 1rem;
+    top: -3px;
     color: rgba(255, 255, 255, 0.6);
     font-family: 'Inter', sans-serif;
     font-size: 13px;
@@ -366,16 +369,21 @@ input:checked + .slider::before {
 
 select.form__input {
     padding-left: 1rem;
+    padding-right: 2.5rem;
     appearance: none;
     background-image: url("../media/icons/chevron-down.svg");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
+    text-align: left;
+    text-align-last: left;
+    line-height: 1.25;
 }
 
 select.form__input option {
     background: var(--bg-color);
     color: var(--text-primary);
+    text-align: left;
 }
 
 .form__input:focus {
@@ -522,4 +530,14 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     margin-top: -7px;
     box-shadow: 0 0 10px rgba(225, 29, 72, 0.5);
+}
+
+/* =========================================================================
+      UTILITY CLASSES
+      ========================================================================= */
+.centered-block-left {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
 }

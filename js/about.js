@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // =============================
-  // Калькулятор стоимости
+  // НАСТРОЙКИ / СОСТОЯНИЕ
   // =============================
   const typeSel = document.getElementById("calc-type");
   const pagesRange = document.getElementById("calc-pages");
@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentVal = 0;
 
+  // =============================
+  // БИЗНЕС-ЛОГИКА
+  // =============================
   function calculateLogic() {
     if (!typeSel) return 0;
 
@@ -65,6 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentVal = newTotal;
   }
 
+  // =============================
+  // СОБЫТИЯ
+  // =============================
   if (!typeSel) return;
 
   typeSel.addEventListener("change", () => updatePrice(true));
@@ -76,5 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePrice(false);
   });
 
+  // =============================
+  // ИНИЦИАЛИЗАЦИЯ
+  // =============================
   updatePrice(true);
 });

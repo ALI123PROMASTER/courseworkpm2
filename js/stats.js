@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // =============================
+  // НАСТРОЙКИ / СОСТОЯНИЕ
+  // =============================
   const data = getData();
 
   // =============================
-  // KPI блок
+  // БЛОК KPI
   // =============================
   const totalProjectsEl = document.getElementById("kpi-total-projects");
   const totalBudgetEl = document.getElementById("kpi-total-budget");
@@ -17,6 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const successRate =
     totalProjects > 0 ? Math.round((completedCount / totalProjects) * 100) : 0;
 
+  // =============================
+  // UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+  // =============================
   function animateValue(obj, objPrefix, start, end, duration) {
     if (!obj) return;
 
@@ -48,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 300);
 
   // =============================
-  // Прогресс-бары категорий
+  // ПОЛОСЫ ПО КАТЕГОРИЯМ
   // =============================
   const categoryBarsContainer = document.getElementById("category-bars");
   const categoryCounts = {};
@@ -91,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =============================
-  // Круговая диаграмма бюджета
+  // КРУГОВАЯ ДИАГРАММА БЮДЖЕТА
   // =============================
   const circleChart = document.getElementById("circle-chart");
   const chartLegend = document.getElementById("chart-legend");
@@ -156,4 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
       circleChart.style.transform = "scale(1) rotate(0deg)";
     }, 400);
   }
+
+  // =============================
+  // ИНИЦИАЛИЗАЦИЯ
+  // =============================
 });
