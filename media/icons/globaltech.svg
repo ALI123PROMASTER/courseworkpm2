@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <symbol id="globaltech" viewBox="0 0 24 24">
-    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16zM12 21.5L4 17v-9l8 4.5 8-4.5v9l-8 4.5z" />
-  </symbol>
-  <use href="#globaltech"></use>
-</svg>

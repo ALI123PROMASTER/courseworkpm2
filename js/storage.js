@@ -6,7 +6,7 @@ const STORAGE_KEY = "it_company_projects_premium";
 function getInitialData() {
   return [
     {
-      id: 1709123000000,
+      id: "1709123000000",
       title: "Аналитическая платформа AI",
       category: "Web Platform",
       date: "2025-10-15",
@@ -16,7 +16,7 @@ function getInitialData() {
       price: 15000,
     },
     {
-      id: 1709123000001,
+      id: "1709123000001",
       title: "Кроссплатформенное приложение EcoTrack",
       category: "Mobile App",
       date: "2025-11-20",
@@ -26,7 +26,7 @@ function getInitialData() {
       price: 12500,
     },
     {
-      id: 1709123000002,
+      id: "1709123000002",
       title: 'Дизайн-система банка "Neo"',
       category: "UI/UX Design",
       date: "2025-08-01",
@@ -36,7 +36,7 @@ function getInitialData() {
       price: 8000,
     },
     {
-      id: 1709123000003,
+      id: "1709123000003",
       title: 'Корпоративный портал "Global Log"',
       category: "Enterprise System",
       date: "2026-01-10",
@@ -46,7 +46,7 @@ function getInitialData() {
       price: 25000,
     },
     {
-      id: 1709123000004,
+      id: "1709123000004",
       title: "Лендинг для крипто-проекта",
       category: "Web Platform",
       date: "2025-05-12",
@@ -56,7 +56,7 @@ function getInitialData() {
       price: 4500,
     },
     {
-      id: 1709123000005,
+      id: "1709123000005",
       title: 'Мобильный банк "EasyMoney"',
       category: "Mobile App",
       date: "2026-03-30",
@@ -68,6 +68,34 @@ function getInitialData() {
   ];
 }
 
+function safeParseJSON(value, fallback) {
+  if (typeof value !== "string" || value.length === 0) return fallback;
+
+  try {
+    const parsed = JSON.parse(value);
+    return parsed ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function normalizeProjects(rawProjects) {
+  if (!Array.isArray(rawProjects)) return null;
+
+  return rawProjects
+    .filter((item) => item && typeof item === "object")
+    .map((item, index) => ({
+      ...item,
+      id: String(item.id ?? `${Date.now()}-${index}`),
+      price: Number(item.price) || 0,
+      status: item.status || "В работе",
+      category: item.category || "Other",
+      title: item.title || "Без названия",
+      description: item.description || "",
+      date: item.date || "",
+    }));
+}
+
 function getData() {
   const data = localStorage.getItem(STORAGE_KEY);
 
@@ -77,7 +105,32 @@ function getData() {
     return initialData;
   }
 
-  return JSON.parse(data);
+  const parsedData = safeParseJSON(data, null);
+  const normalizedData = normalizeProjects(parsedData);
+
+  if (!normalizedData) {
+    const initialData = getInitialData();
+    saveData(initialData);
+    return initialData;
+  }
+
+  const needsMigration =
+    parsedData.length !== normalizedData.length ||
+    parsedData.some((item, index) => {
+      const normalizedItem = normalizedData[index];
+      if (!normalizedItem) return true;
+
+      return (
+        String(item?.id ?? "") !== normalizedItem.id ||
+        Number(item?.price) !== normalizedItem.price
+      );
+    });
+
+  if (needsMigration) {
+    saveData(normalizedData);
+  }
+
+  return normalizedData;
 }
 
 function saveData(data) {
@@ -99,8 +152,18 @@ function buildIcon(symbolId, attributes) {
   return `<svg ${attributes}><use href="${getIconHref(symbolId)}"></use></svg>`;
 }
 
+function generateId(prefix = "id") {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 window.getIconHref = getIconHref;
 window.buildIcon = buildIcon;
+window.safeParseJSON = safeParseJSON;
+window.generateId = generateId;
 
 // ============================================================
 // 03. ГЛОБАЛЬНЫЕ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
@@ -116,22 +179,59 @@ window.escapeHTML = function (str) {
     .replace(/'/g, "&#039;");
 };
 
-window.initScrollAnimations = function () {
-  const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+window.showToast = function (message, type = "success") {
+  const container = document.getElementById("toast-container");
+  if (!container) return;
 
-  const observer = new IntersectionObserver((entries, observerObj) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observerObj.unobserve(entry.target); // Animate once
-      }
-    });
-  }, observerOptions);
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  const iconName = type === "success" ? "check" : "alert";
 
-  document
-    .querySelectorAll(".animate-on-scroll:not(.is-visible)")
-    .forEach((el) => observer.observe(el));
+  toast.innerHTML = `${buildIcon(
+    iconName,
+    'fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"',
+  )} <span>${window.escapeHTML(String(message))}</span>`;
+
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add("show"));
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 400);
+  }, 3000);
 };
+
+window.initScrollAnimations = (() => {
+  let observer = null;
+
+  return function initScrollAnimations() {
+    const targets = document.querySelectorAll(
+      ".animate-on-scroll:not(.is-visible)",
+    );
+    if (targets.length === 0) return;
+
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+
+    if (!observer) {
+      observer = new IntersectionObserver(
+        (entries, observerObj) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observerObj.unobserve(entry.target);
+            }
+          });
+        },
+        { root: null, rootMargin: "0px", threshold: 0.1 },
+      );
+    }
+
+    targets.forEach((el) => observer.observe(el));
+  };
+})();
 
 // ============================================================
 // 04. ИНИЦИАЛИЗАЦИЯ UI
@@ -164,10 +264,9 @@ function initThemeToggle() {
 
     themeToggle.innerHTML = newTheme === "dark" ? moonIcon : sunIcon;
 
-    themeToggle.style.transform = "scale(0.8)";
-    setTimeout(() => {
-      themeToggle.style.transform = "scale(1)";
-    }, 150);
+    themeToggle.classList.remove("is-pressed");
+    void themeToggle.offsetWidth;
+    themeToggle.classList.add("is-pressed");
   });
 }
 

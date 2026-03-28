@@ -30,7 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  let reviews = JSON.parse(localStorage.getItem(REVIEWS_KEY)) || defaultReviews;
+  let reviews =
+    window.safeParseJSON?.(localStorage.getItem(REVIEWS_KEY), null) ?? null;
+  if (!Array.isArray(reviews)) {
+    reviews = [...defaultReviews];
+  }
 
   // ============================================================
   // 02. ХРАНИЛИЩЕ
@@ -47,7 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 03. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ПРЕДСТАВЛЕНИЯ
   // ============================================================
   function createReviewElement(review) {
-    const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+    const safeRating = Math.min(5, Math.max(1, Number(review.rating) || 1));
+    const stars = "★".repeat(safeRating) + "☆".repeat(5 - safeRating);
     const safeName = window.escapeHTML(review.name);
     const safeText = window.escapeHTML(review.text);
 
@@ -113,9 +118,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const newReview = {
-        id: crypto.randomUUID(),
+        id: window.generateId?.("review") || `review-${Date.now()}`,
         name: nameInput.value.trim(),
-        rating: parseInt(ratingInput.value, 10),
+        rating: Math.min(5, Math.max(1, parseInt(ratingInput.value, 10) || 1)),
         text: textInput.value.trim(),
         date: new Date().toLocaleDateString("ru-RU"),
       };
@@ -137,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("storage", (e) => {
     if (e.key !== REVIEWS_KEY || !e.newValue) return;
 
-    const newReviews = JSON.parse(e.newValue);
+    const newReviews = window.safeParseJSON?.(e.newValue, null) ?? null;
     if (!Array.isArray(newReviews)) return;
 
     if (newReviews.length > lastReviewCount) {

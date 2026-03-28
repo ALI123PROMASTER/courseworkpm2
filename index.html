@@ -6,13 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
-        rel="stylesheet">
-
     <!-- SEO -->
     <title>Aura Web - Корпоративные решения</title>
     <meta name="description"
@@ -88,11 +81,8 @@
 
                     <div class="hero__media glass animate-on-scroll">
                         <video class="hero__video" autoplay loop muted playsinline preload="metadata"
-                            poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&h=700&fit=crop&fm=webp"
                             aria-label="Видео о процессе создания цифрового продукта">
-                            <source
-                                src="https://media.istockphoto.com/id/1556389414/video/man-using-a-laptop-double-exposure-with-business-data-analytics-dashboard.mp4?s=mp4-640x640-is&k=20&c=J7dE_a85kSnTLEFiXYLbDpK-W9_8S6GtD14l3DD6EMQ="
-                                type="video/mp4">
+                            <source src="media/video/aura-web.mp4" type="video/mp4">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
@@ -191,41 +181,111 @@
         <section class="gallery animate-on-scroll">
             <div class="container">
                 <h2 class="section-title text-center">Галерея проектов</h2>
+                <div class="gallery-toolbar" aria-label="Фильтр галереи">
+                    <button class="gallery-filter is-active" type="button" data-filter="all">Все</button>
+                    <button class="gallery-filter" type="button" data-filter="web">Web</button>
+                    <button class="gallery-filter" type="button" data-filter="mobile">Mobile</button>
+                    <button class="gallery-filter" type="button" data-filter="design">Design</button>
+                </div>
                 <div class="gallery-grid" id="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=400&fit=crop&fm=webp"
-                            alt="Web Development" class="gallery-img" loading="lazy" width="500" height="400"
-                            crossorigin="anonymous">
+                    <button class="gallery-item" type="button" data-category="web" data-title="E-commerce Platform"
+                        data-cat="Web Разработка">
+                        <img src="media/images/gallery/gallery-1.svg" alt="Web Development" class="gallery-img"
+                            loading="lazy" width="500" height="400">
                         <div class="gallery-overlay">
                             <h3 class="gallery-title">E-commerce Platform</h3>
                             <span class="gallery-cat">Web Разработка</span>
                         </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=400&fit=crop&fm=webp"
-                            alt="Data Analytics" class="gallery-img" loading="lazy" width="500" height="400"
-                            crossorigin="anonymous">
+                    </button>
+                    <button class="gallery-item" type="button" data-category="web" data-title="CRM System"
+                        data-cat="Корпоративные системы">
+                        <img src="media/images/gallery/gallery-2.svg" alt="Data Analytics" class="gallery-img"
+                            loading="lazy" width="500" height="400">
                         <div class="gallery-overlay">
                             <h3 class="gallery-title">CRM System</h3>
                             <span class="gallery-cat">Корпоративные системы</span>
                         </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=400&fit=crop&fm=webp"
-                            alt="Programming" class="gallery-img" loading="lazy" width="500" height="400"
-                            crossorigin="anonymous">
+                    </button>
+                    <button class="gallery-item" type="button" data-category="web" data-title="SaaS Dashboard"
+                        data-cat="Web Платформы">
+                        <img src="media/images/gallery/gallery-3.svg" alt="Programming" class="gallery-img"
+                            loading="lazy" width="500" height="400">
                         <div class="gallery-overlay">
                             <h3 class="gallery-title">SaaS Dashboard</h3>
                             <span class="gallery-cat">Web Платформы</span>
                         </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500&h=400&fit=crop&fm=webp"
-                            alt="Mobile App" class="gallery-img" loading="lazy" width="500" height="400"
-                            crossorigin="anonymous">
+                    </button>
+                    <button class="gallery-item" type="button" data-category="mobile" data-title="Fintech App"
+                        data-cat="Мобильные приложения">
+                        <img src="media/images/gallery/gallery-4.svg" alt="Mobile App" class="gallery-img"
+                            loading="lazy" width="500" height="400">
                         <div class="gallery-overlay">
                             <h3 class="gallery-title">Fintech App</h3>
                             <span class="gallery-cat">Мобильные приложения</span>
+                        </div>
+                    </button>
+                    <button class="gallery-item" type="button" data-category="web" data-title="AI Analytics Hub"
+                        data-cat="Data Platform">
+                        <img src="media/images/gallery/gallery-5.svg" alt="AI Analytics" class="gallery-img"
+                            loading="lazy" width="500" height="400">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">AI Analytics Hub</h3>
+                            <span class="gallery-cat">Data Platform</span>
+                        </div>
+                    </button>
+                    <button class="gallery-item" type="button" data-category="mobile" data-title="Mobile Banking"
+                        data-cat="Product Design">
+                        <img src="media/images/gallery/gallery-6.svg" alt="Mobile Product" class="gallery-img"
+                            loading="lazy" width="500" height="400">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Mobile Banking</h3>
+                            <span class="gallery-cat">Product Design</span>
+                        </div>
+                    </button>
+                    <button class="gallery-item" type="button" data-category="web" data-title="Cloud Infrastructure"
+                        data-cat="Enterprise Systems">
+                        <img src="media/images/gallery/gallery-7.svg" alt="Cloud Infrastructure" class="gallery-img"
+                            loading="lazy" width="500" height="400">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Cloud Infrastructure</h3>
+                            <span class="gallery-cat">Enterprise Systems</span>
+                        </div>
+                    </button>
+                    <button class="gallery-item" type="button" data-category="design" data-title="Design System"
+                        data-cat="UI/UX Design">
+                        <img src="media/images/gallery/gallery-8.svg" alt="Design System" class="gallery-img"
+                            loading="lazy" width="500" height="400">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Design System</h3>
+                            <span class="gallery-cat">UI/UX Design</span>
+                        </div>
+                    </button>
+                    <button class="gallery-item" type="button" data-category="web" data-title="E-learning Platform"
+                        data-cat="EdTech">
+                        <img src="media/images/gallery/gallery-9.svg" alt="E-learning Platform" class="gallery-img"
+                            loading="lazy" width="500" height="400">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">E-learning Platform</h3>
+                            <span class="gallery-cat">EdTech</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+                    <div class="gallery-lightbox__backdrop" data-close="true"></div>
+                    <div class="gallery-lightbox__dialog glass" role="dialog" aria-modal="true"
+                        aria-label="Просмотр изображения">
+                        <button class="gallery-lightbox__close" id="gallery-close" type="button"
+                            aria-label="Закрыть галерею">&times;</button>
+                        <img id="gallery-lightbox-image" class="gallery-lightbox__image"
+                            src="media/images/gallery/gallery-1.svg" alt="Просмотр изображения">
+                        <div class="gallery-lightbox__meta">
+                            <h3 id="gallery-lightbox-title"></h3>
+                            <span id="gallery-lightbox-cat"></span>
+                        </div>
+                        <div class="gallery-lightbox__actions">
+                            <button class="btn btn--outline" id="gallery-prev" type="button">Назад</button>
+                            <button class="btn btn--primary" id="gallery-next" type="button">Вперед</button>
                         </div>
                     </div>
                 </div>
@@ -364,8 +424,7 @@
             </div>
 
             <div class="footer__contact">
-                <a href="tel:+18001234567" class="footer__phone"
-                    style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+                <a href="tel:+18001234567" class="footer__phone">8 (800) 123-45-67</a>
                 <a href="mailto:hello@aura-web.dev" class="footer__mail">hello@aura-web.dev</a>
             </div>
             <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
@@ -373,10 +432,11 @@
     </footer>
 
     <!-- EDIT MODAL -->
-    <div class="modal-overlay" id="edit-modal">
+    <div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title"
+        aria-hidden="true">
         <div class="modal">
             <div class="modal__header">
-                <h2>Редактирование проекта</h2>
+                <h2 id="edit-modal-title">Редактирование проекта</h2>
                 <button class="btn-close" id="close-modal" type="button" aria-label="Закрыть окно">&times;</button>
             </div>
             <form id="edit-form" class="form-grid">

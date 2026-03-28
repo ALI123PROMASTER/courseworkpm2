@@ -1,28 +1,7 @@
-// ============================================================
-// 01. ВСПОМОГАТЕЛЬНЫЕ СТИЛИ
-// ============================================================
-function ensureShakeKeyframes() {
-  if (document.getElementById("shake-keyframes")) return;
-
-  const style = document.createElement("style");
-  style.id = "shake-keyframes";
-  style.innerHTML = `
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
-  `;
-
-  document.head.appendChild(style);
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   // ============================================================
-  // 02. НАСТРОЙКИ / СОСТОЯНИЕ
+  // 01. НАСТРОЙКИ / СОСТОЯНИЕ
   // ============================================================
-  ensureShakeKeyframes();
-
   const form = document.getElementById("project-form");
   const cancelBtn = document.getElementById("btn-cancel");
   if (!form || !cancelBtn) return;
@@ -31,33 +10,51 @@ document.addEventListener("DOMContentLoaded", () => {
     ? "../index.html"
     : "index.html";
 
-  const getIconHref = window.getIconHref
-    ? window.getIconHref
-    : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
+  const submitBtn = form.querySelector('button[type="submit"]');
 
   // ============================================================
-  // 03. UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+  // 02. UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
   // ============================================================
-  function showToast(message, type = "error") {
-    const container = document.getElementById("toast-container");
-    if (!container) return;
+  function shakeForm() {
+    const shakeTarget = form.closest(".form-container") || form;
 
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-    const icon = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"><use href="${getIconHref("alert")}"></use></svg>`;
-    toast.innerHTML = `${icon} <span>${message}</span>`;
+    // Prefer WAAPI to avoid conflicts with existing transform/transition styles.
+    if (typeof shakeTarget.animate === "function") {
+      shakeTarget.animate(
+        [
+          { transform: "translateX(0)" },
+          { transform: "translateX(-6px)" },
+          { transform: "translateX(6px)" },
+          { transform: "translateX(-5px)" },
+          { transform: "translateX(5px)" },
+          { transform: "translateX(0)" },
+        ],
+        {
+          duration: 420,
+          easing: "ease-in-out",
+        },
+      );
+      return;
+    }
 
-    container.appendChild(toast);
-    requestAnimationFrame(() => toast.classList.add("show"));
-
+    shakeTarget.classList.remove("is-shaking");
+    void shakeTarget.offsetWidth;
+    shakeTarget.classList.add("is-shaking");
     setTimeout(() => {
-      toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 400);
-    }, 4000);
+      shakeTarget.classList.remove("is-shaking");
+    }, 500);
+  }
+
+  function setSubmitLoading(isLoading) {
+    if (!submitBtn) return;
+
+    submitBtn.textContent = isLoading ? "Сохранение..." : "Запустить проект";
+    submitBtn.classList.toggle("is-loading", isLoading);
+    submitBtn.disabled = isLoading;
   }
 
   // ============================================================
-  // 04. ВАЛИДАЦИЯ
+  // 03. ВАЛИДАЦИЯ
   // ============================================================
   function getFormFields() {
     return {
@@ -77,42 +74,49 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     let isValid = true;
+    let firstInvalidField = null;
     let errorMessage = "Заполните обязательные поля:";
 
     if (!titleEl.value.trim()) {
       titleEl.classList.add("error");
       errorMessage += " Название,";
       isValid = false;
+      if (!firstInvalidField) firstInvalidField = titleEl;
     }
     if (!categoryEl.value) {
       categoryEl.classList.add("error");
       errorMessage += " Категория,";
       isValid = false;
+      if (!firstInvalidField) firstInvalidField = categoryEl;
     }
     if (!dateEl.value) {
       dateEl.classList.add("error");
       errorMessage += " Срок,";
       isValid = false;
+      if (!firstInvalidField) firstInvalidField = dateEl;
     }
     if (!priceEl.value || Number(priceEl.value) <= 0) {
       priceEl.classList.add("error");
       errorMessage += " Бюджет,";
       isValid = false;
+      if (!firstInvalidField) firstInvalidField = priceEl;
     }
     if (!descEl.value.trim()) {
       descEl.classList.add("error");
       errorMessage += " Описание,";
       isValid = false;
+      if (!firstInvalidField) firstInvalidField = descEl;
     }
 
     return {
       isValid,
       errorMessage: errorMessage.slice(0, -1),
+      firstInvalidField,
     };
   }
 
   // ============================================================
-  // 05. СОБЫТИЯ ФОРМЫ
+  // 04. СОБЫТИЯ ФОРМЫ
   // ============================================================
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -121,16 +125,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const validation = validateForm(fields);
 
     if (!validation.isValid) {
-      showToast(validation.errorMessage);
-      form.style.animation = "shake 0.5s";
-      setTimeout(() => {
-        form.style.animation = "";
-      }, 500);
+      window.showToast?.(validation.errorMessage, "error");
+      validation.firstInvalidField?.focus();
+      shakeForm();
       return;
     }
 
     const newProject = {
-      id: crypto.randomUUID(),
+      id: window.generateId?.("project") || `project-${Date.now()}`,
       title: fields.titleEl.value.trim(),
       category: fields.categoryEl.value,
       date: fields.dateEl.value,
@@ -143,9 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data.push(newProject);
     saveData(data);
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.innerHTML = "Сохранение...";
-    submitBtn.style.opacity = "0.7";
+    setSubmitLoading(true);
 
     setTimeout(() => {
       window.location.href = rootIndexPath;
@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
   cancelBtn.addEventListener("click", () => {
     window.location.href = rootIndexPath;
   });
-  // 06. ИНИЦИАЛИЗАЦИЯ
+
+  // 05. ИНИЦИАЛИЗАЦИЯ
   // Дополнительные действия не требуются: обработчики уже подключены.
 });

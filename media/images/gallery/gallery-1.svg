@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">E-commerce Platform Preview</title>
+  <desc id="desc">Styled local placeholder of an online store interface with product cards and cart panel.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#7f1d1d"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f2937"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="1020" cy="120" r="160" fill="#e11d48" opacity="0.22"/>
+  <rect x="80" y="110" width="1040" height="680" rx="34" fill="#0b1220" opacity="0.82"/>
+  <rect x="120" y="150" width="760" height="50" rx="12" fill="#1f2937"/>
+  <rect x="930" y="150" width="150" height="50" rx="12" fill="#e11d48" opacity="0.9"/>
+  <g fill="url(#card)">
+    <rect x="120" y="240" width="230" height="220" rx="18"/>
+    <rect x="380" y="240" width="230" height="220" rx="18"/>
+    <rect x="640" y="240" width="230" height="220" rx="18"/>
+    <rect x="120" y="490" width="230" height="220" rx="18"/>
+    <rect x="380" y="490" width="230" height="220" rx="18"/>
+    <rect x="640" y="490" width="230" height="220" rx="18"/>
+  </g>
+  <rect x="900" y="240" width="180" height="470" rx="18" fill="#111827"/>
+  <rect x="930" y="280" width="120" height="14" rx="7" fill="#94a3b8"/>
+  <rect x="930" y="320" width="120" height="14" rx="7" fill="#94a3b8"/>
+  <rect x="930" y="360" width="120" height="14" rx="7" fill="#94a3b8"/>
+  <rect x="930" y="620" width="120" height="44" rx="10" fill="#e11d48"/>
+  <text x="600" y="850" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="54" font-weight="700">E-commerce Platform</text>
+</svg>

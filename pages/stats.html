@@ -6,13 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
-        rel="stylesheet">
-
     <!-- SEO -->
     <title>Мониторинг проектов - Aura Web</title>
     <meta name="description"
@@ -124,11 +117,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-40">
+    <footer class="footer">
         <div class="container footer__container">
-            <div class="logo">
-                <div class="logo__icon logo__icon--small">A</div>Aura Web
-            </div>
+            <a href="../index.html" class="logo">
+                <div class="logo__icon logo__icon--small">A</div>
+                Aura Web
+            </a>
 
             <p class="footer__pitch">Запускаем веб-продукты под KPI бизнеса: от идеи до релиза и поддержки.</p>
 
@@ -138,9 +132,23 @@
                 <a href="about.html">Услуги и цены</a>
             </nav>
 
+            <div class="socials">
+                <a href="https://telegram.org/" class="social-link" rel="noopener noreferrer" aria-label="Telegram"><svg
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20">
+                        <use href="../media/icons/telegram.svg#telegram"></use>
+                    </svg></a>
+                <a href="https://twitter.com/" class="social-link" rel="noopener noreferrer" aria-label="Twitter"><svg
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20">
+                        <use href="../media/icons/twitter.svg#twitter"></use>
+                    </svg></a>
+                <a href="https://www.linkedin.com/" class="social-link" rel="noopener noreferrer"
+                    aria-label="LinkedIn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20">
+                        <use href="../media/icons/linkedin.svg#linkedin"></use>
+                    </svg></a>
+            </div>
+
             <div class="footer__contact">
-                <a href="tel:+18001234567" class="footer__phone"
-                    style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+                <a href="tel:+18001234567" class="footer__phone">8 (800) 123-45-67</a>
                 <a href="mailto:hello@aura-web.dev" class="footer__mail">hello@aura-web.dev</a>
             </div>
             <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>

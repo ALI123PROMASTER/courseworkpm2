@@ -68,32 +68,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (categoryBarsContainer) {
     categoryBarsContainer.innerHTML = "";
+    const barsFragment = document.createDocumentFragment();
 
     Object.entries(categoryCounts).forEach(([category, count], index) => {
       const percentage = Math.round((count / maxCount) * 100);
 
       const wrap = document.createElement("div");
       wrap.className = "progress-wrap";
-      wrap.innerHTML = `
-                <div class="progress-info">
-                    <span>${category}</span>
-                    <span style="color: var(--accent-1); font-weight: 700;">${count}</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="bar-${index}" style="width: 0%;"></div>
-                </div>
-            `;
+      const progressInfo = document.createElement("div");
+      progressInfo.className = "progress-info";
 
-      categoryBarsContainer.appendChild(wrap);
+      const categoryLabel = document.createElement("span");
+      categoryLabel.textContent = category;
+
+      const countLabel = document.createElement("span");
+      countLabel.className = "progress-info-value";
+      countLabel.textContent = String(count);
+
+      progressInfo.append(categoryLabel, countLabel);
+
+      const progressBar = document.createElement("div");
+      progressBar.className = "progress-bar";
+
+      const progressFill = document.createElement("div");
+      progressFill.className = "progress-fill";
+
+      progressBar.appendChild(progressFill);
+      wrap.append(progressInfo, progressBar);
+      barsFragment.appendChild(wrap);
 
       setTimeout(
         () => {
-          const bar = document.getElementById(`bar-${index}`);
-          if (bar) bar.style.width = `${percentage}%`;
+          progressFill.style.width = `${percentage}%`;
         },
         500 + index * 150,
       );
     });
+
+    categoryBarsContainer.appendChild(barsFragment);
   }
 
   // ============================================================
@@ -125,9 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "#ec4899",
   ];
 
-  if (chartLegend) {
-    chartLegend.innerHTML = "";
-  }
+  const legendFragment = document.createDocumentFragment();
+  if (chartLegend) chartLegend.innerHTML = "";
 
   let currentAngle = 0;
   const gradientStops = [];
@@ -140,10 +151,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (chartLegend) {
       const legendItem = document.createElement("div");
       legendItem.className = "legend-item";
-      legendItem.innerHTML = `<div class="legend-color" style="background: ${color}"></div> ${category} ($${(
-        budget / 1000
-      ).toFixed(1)}k)`;
-      chartLegend.appendChild(legendItem);
+
+      const legendColor = document.createElement("div");
+      legendColor.className = "legend-color";
+      legendColor.style.background = color;
+
+      const legendText = document.createElement("span");
+      legendText.textContent = `${category} ($${(budget / 1000).toFixed(1)}k)`;
+
+      legendItem.append(legendColor, legendText);
+      legendFragment.appendChild(legendItem);
     }
 
     const startAngle = currentAngle;
@@ -161,6 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       circleChart.style.transform = "scale(1) rotate(0deg)";
     }, 400);
+  }
+
+  if (chartLegend) {
+    chartLegend.appendChild(legendFragment);
   }
 
   // 06. ИНИЦИАЛИЗАЦИЯ
