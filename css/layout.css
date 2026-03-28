@@ -43,11 +43,17 @@
 }
 
 .header__container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 1rem;
+    gap: clamp(0.75rem, 2vw, 2rem);
     position: relative;
+}
+
+.header__container .nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .header__actions {
@@ -94,8 +100,18 @@
 
 .nav__list {
     display: flex;
-    gap: 2.5rem;
+    width: auto;
+    justify-content: center;
+    gap: clamp(1rem, 1.8vw, 2.25rem);
     align-items: center;
+}
+
+@media (min-width: 769px) {
+    .header .container.header__container {
+        max-width: none;
+        width: 100%;
+        padding-inline: clamp(20px, 3.2vw, 56px);
+    }
 }
 
 .nav__link {

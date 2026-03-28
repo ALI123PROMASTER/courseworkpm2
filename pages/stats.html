@@ -14,10 +14,12 @@
         rel="stylesheet">
 
     <!-- SEO -->
-    <title>Аналитика - Aura Web</title>
-    <meta name="description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
-    <meta property="og:title" content="Аналитика - Aura Web">
-    <meta property="og:description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
+    <title>Мониторинг проектов - Aura Web</title>
+    <meta name="description"
+        content="Мониторинг и управление вашими проектами. Отслеживайте статус, бюджет и сроки разработки.">
+    <meta property="og:title" content="Мониторинг проектов - Aura Web">
+    <meta property="og:description"
+        content="Мониторинг и управление вашими проектами. Отслеживайте статус, бюджет и сроки разработки.">
 
     <!-- Styles -->
     <link rel="stylesheet" href="../css/variables.css">
@@ -44,7 +46,7 @@
                 <ul class="nav__list" id="nav-list">
                     <li><a href="../index.html" class="nav__link">Главная</a></li>
                     <li><a href="form.html" class="nav__link">Заказать</a></li>
-                    <li><a href="about.html" class="nav__link">О нас / Цены</a></li>
+                    <li><a href="about.html" class="nav__link">Услуги и цены</a></li>
                     <li><a href="stats.html" class="nav__link nav__link--active">Аналитика</a></li>
                 </ul>
             </nav>
@@ -62,59 +64,63 @@
     </header>
 
     <main class="container page-main">
-        <h1 class="section-title animate-on-scroll">Аналитика портфеля</h1>
-        <p class="section-subtitle animate-on-scroll">Сводные данные о проектах и
-            финансовые показатели компании</p>
+        <h1 class="section-title animate-on-scroll">Мониторинг ваших проектов</h1>
+        <p class="section-subtitle animate-on-scroll">Отслеживайте статус вашего проекта в режиме реального
+            времени.<br>Добавьте первый проект на странице <a href="form.html" class="stats-link">Заказать</a>.</p>
+        <p class="stats-note">Эта страница — вспомогательный инструмент для отслеживания добавленных вами проектов. Она
+            демонстрирует возможности нашей платформы управления.</p>
 
-        <!-- KPI Cards -->
-        <div class="stats-grid">
-            <div class="stat-card glass animate-on-scroll">
-                <h2 class="kpi-title">Всего проектов</h2>
-                <div class="stat-val" id="kpi-total-projects">0</div>
-                <div class="kpi-success">В системе</div>
-            </div>
+        <section class="analytics-page glass animate-on-scroll" aria-label="Сводная аналитика">
+            <!-- KPI Cards -->
+            <div class="stats-grid">
+                <div class="stat-card animate-on-scroll">
+                    <h2 class="kpi-title">Всего проектов</h2>
+                    <div class="stat-val" id="kpi-total-projects">0</div>
+                    <div class="kpi-success">В системе</div>
+                </div>
 
-            <div class="stat-card glass animate-on-scroll">
-                <h2 class="kpi-title">Общий бюджет (USD)</h2>
-                <div class="stat-val stat-val--warning" id="kpi-total-budget">$0</div>
-                <div class="kpi-success">+12% за месяц</div>
-            </div>
+                <div class="stat-card animate-on-scroll">
+                    <h2 class="kpi-title">Общий бюджет (USD)</h2>
+                    <div class="stat-val stat-val--warning" id="kpi-total-budget">$0</div>
+                    <div class="kpi-success">+12% за месяц</div>
+                </div>
 
-            <div class="stat-card glass animate-on-scroll">
-                <h2 class="kpi-title">Успешность сдачи</h2>
-                <div class="stat-val" id="kpi-success-rate">0%</div>
-                <div class="kpi-text">Доля проектов "Готово"</div>
-            </div>
-        </div>
-
-        <div class="stats-dashboard">
-            <!-- Progress Bars (Category breakdown) -->
-            <div class="chart-card glass animate-on-scroll">
-                <h3 class="stats-section-title">Проекты по категориям</h3>
-                <div id="category-bars">
-                    <!-- Injected by JS -->
+                <div class="stat-card animate-on-scroll">
+                    <h2 class="kpi-title">Успешность сдачи</h2>
+                    <div class="stat-val" id="kpi-success-rate">0%</div>
+                    <div class="kpi-text">Доля проектов "Готово"</div>
                 </div>
             </div>
 
-            <!-- Budget Distribution -->
-            <div class="chart-card glass animate-on-scroll">
-                <h3 class="stats-section-title text-center">Распределение бюджета</h3>
-                <div class="budget-layout">
-                    <div class="circle-chart-container">
-                        <div id="circle-chart" class="circle-chart"></div>
-                        <!-- Center Metric -->
-                        <div class="chart-center">
-                            <span class="chart-label">Топ сфера</span>
-                            <strong id="top-sphere" class="chart-value">-</strong>
-                        </div>
-                    </div>
-
-                    <div class="chart-legend" id="chart-legend">
+            <div class="stats-dashboard">
+                <!-- Progress Bars (Category breakdown) -->
+                <div class="chart-card animate-on-scroll">
+                    <h3 class="stats-section-title">Проекты по категориям</h3>
+                    <div id="category-bars">
                         <!-- Injected by JS -->
                     </div>
                 </div>
+
+                <!-- Budget Distribution -->
+                <div class="chart-card animate-on-scroll">
+                    <h3 class="stats-section-title text-center">Распределение бюджета</h3>
+                    <div class="budget-layout">
+                        <div class="circle-chart-container">
+                            <div id="circle-chart" class="circle-chart"></div>
+                            <!-- Center Metric -->
+                            <div class="chart-center">
+                                <span class="chart-label">Топ сфера</span>
+                                <strong id="top-sphere" class="chart-value">-</strong>
+                            </div>
+                        </div>
+
+                        <div class="chart-legend" id="chart-legend">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
     </main>
 

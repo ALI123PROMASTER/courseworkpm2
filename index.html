@@ -15,7 +15,8 @@
 
     <!-- SEO -->
     <title>Aura Web - Корпоративные решения</title>
-    <meta name="description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
+    <meta name="description"
+        content="Профессиональная разработка веб-сайтов, приложений и SaaS платформ. Портфолио, услуги и прямой контакт со студией.">
     <meta property="og:title" content="Aura Web - Корпоративные решения">
     <meta property="og:description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
 
@@ -45,7 +46,7 @@
                 <ul class="nav__list" id="nav-list">
                     <li><a href="index.html" class="nav__link nav__link--active">Главная</a></li>
                     <li><a href="pages/form.html" class="nav__link">Заказать</a></li>
-                    <li><a href="pages/about.html" class="nav__link">О нас / Цены</a></li>
+                    <li><a href="pages/about.html" class="nav__link">Услуги и цены</a></li>
                     <li><a href="pages/stats.html" class="nav__link">Аналитика</a></li>
                 </ul>
             </nav>
@@ -65,16 +66,42 @@
 
     <main>
         <!-- HERO SECTION -->
-        <section id="home" class="hero container">
-            <div class="hero__content animate-on-scroll centered-block-left">
-                <div class="hero__badge">Входим в Топ-10 веб-студий СНГ</div>
-                <h1 class="hero__title">Создаем <span>цифровые продукты</span> премиум класса</h1>
-                <p class="hero__desc">Разрабатываем сложные веб-платформы, финтех-решения и мобильные приложения с
-                    высокой конверсией и современным UX/UI дизайном.</p>
-                <div class="hero__actions">
-                    <a href="pages/form.html" class="btn btn--primary">Создать проект</a>
-                    <a href="pages/about.html" class="btn btn--outline">Наши работы</a>
+        <section id="home" class="hero hero--full">
+            <div class="hero__surface">
+                <div class="hero__grid">
+                    <div class="hero__content animate-on-scroll">
+                        <p class="hero__kicker">AURA WEB PLATFORM</p>
+                        <h1 class="hero__title">Цифровые продукты для <span>роста бизнеса</span></h1>
+                        <p class="hero__desc">Запускаем сайты, сервисы и интерфейсы, которые работают на продажи: от
+                            концепции и дизайна до релиза и поддержки.</p>
+
+                        <div class="hero__actions">
+                            <a href="pages/form.html" class="btn btn--primary">Получить демо</a>
+                            <a href="pages/about.html" class="btn btn--outline">Смотреть услуги</a>
+                        </div>
+
+                        <div class="hero__trust">
+                            <div class="hero__trust-item">SLA 99.9%</div>
+                            <div class="hero__trust-item">SEO-ready</div>
+                            <div class="hero__trust-item">Mobile first</div>
+                        </div>
+                    </div>
+
+                    <div class="hero__media glass animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&h=700&fit=crop&fm=webp"
+                            alt="Команда обсуждает запуск цифрового продукта" loading="eager" width="1000" height="700"
+                            crossorigin="anonymous">
+                        <button class="hero__play" type="button" aria-label="Смотреть презентацию">▶</button>
+                    </div>
                 </div>
+
+                <a href="#services" class="hero__scroll-cue" id="hero-scroll-cue" aria-label="Листнуть к разделу услуг">
+                    <span class="hero__scroll-dot" aria-hidden="true"></span>
+                    <svg class="hero__scroll-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="18"
+                        height="18" aria-hidden="true">
+                        <use href="media/icons/chevron-down.svg#chevron-down"></use>
+                    </svg>
+                </a>
             </div>
         </section>
 
@@ -91,7 +118,8 @@
                         </svg>
                     </div>
                     <h3>Web Платформы</h3>
-                    <p>Масштабируемые веб-платформы, готовые к миллионам пользователей. SaaS, CRM, порталы управления — всё, что нужно для вашего бизнеса.</p>
+                    <p>Масштабируемые веб-платформы, готовые к миллионам пользователей. SaaS, CRM, порталы управления —
+                        всё, что нужно для вашего бизнеса.</p>
                 </div>
 
                 <div class="service-card glass animate-on-scroll">
@@ -101,7 +129,8 @@
                         </svg>
                     </div>
                     <h3>Мобильная разработка</h3>
-                    <p>iOS и Android приложения, которые не тормозят. Нативная разработка для максимальной скорости и стабильности.
+                    <p>iOS и Android приложения, которые не тормозят. Нативная разработка для максимальной скорости и
+                        стабильности.
                     </p>
                 </div>
 
@@ -112,7 +141,8 @@
                         </svg>
                     </div>
                     <h3>UI/UX Дизайн</h3>
-                    <p>От идеи до пикселя: дизайн, который не только красивый, но и конвертит. Тестирование, аналитика, оптимизация.</p>
+                    <p>От идеи до пикселя: дизайн, который не только красивый, но и конвертит. Тестирование, аналитика,
+                        оптимизация.</p>
                 </div>
             </div>
         </section>
@@ -203,36 +233,39 @@
             <div class="container">
                 <h2 class="section-title text-center">Отзывы клиентов</h2>
 
-                <div class="reviews-grid" id="reviews-grid">
-                    <!-- Reviews rendered by JS -->
-                </div>
+                <div class="reviews-layout">
+                    <div class="reviews-grid" id="reviews-grid">
+                        <!-- Reviews rendered by JS -->
+                    </div>
 
-                <div class="review-form-container glass">
-                    <h3 class="review-form-title text-center">Оставить отзыв</h3>
-                    <form id="review-form" class="form-grid">
-                        <div class="input-float">
-                            <input type="text" id="review-name" class="form__input" required placeholder=" ">
-                            <label for="review-name">Ваше имя *</label>
-                        </div>
-                        <div class="input-float">
-                            <select id="review-rating" class="form__input form__select" required
-                                aria-label="Выберите оценку">
-                                <option value="" disabled selected>Оценка *</option>
-                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                                <option value="3">⭐⭐⭐ (3/5)</option>
-                                <option value="2">⭐⭐ (2/5)</option>
-                                <option value="1">⭐ (1/5)</option>
-                            </select>
-                        </div>
-                        <div class="input-float full-width">
-                            <textarea id="review-text" class="form__input" required placeholder=" "></textarea>
-                            <label for="review-text">Текст отзыва *</label>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn--primary btn-submit">Отправить отзыв</button>
-                        </div>
-                    </form>
+                    <div class="review-form-container glass">
+                        <h3 class="review-form-title text-center">Оставить отзыв</h3>
+                        <form id="review-form" class="form-grid">
+                            <div class="input-float">
+                                <input type="text" id="review-name" class="form__input form_padding" required
+                                    placeholder=" ">
+                                <label for="review-name">Ваше имя *</label>
+                            </div>
+                            <div class="input-float">
+                                <select id="review-rating" class="form__input form__select" required
+                                    aria-label="Выберите оценку">
+                                    <option value="" disabled selected>Оценка *</option>
+                                    <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                    <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                    <option value="3">⭐⭐⭐ (3/5)</option>
+                                    <option value="2">⭐⭐ (2/5)</option>
+                                    <option value="1">⭐ (1/5)</option>
+                                </select>
+                            </div>
+                            <div class="input-float full-width">
+                                <textarea id="review-text" class="form__input" required placeholder=" "></textarea>
+                                <label for="review-text">Текст отзыва *</label>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn--primary btn-submit">Отправить отзыв</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -252,7 +285,9 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
-                            Стоимость включает разработку (€50–150/час), дизайн, тестирование, дeплойка и поддержку. Минимальный проект начинается с $500. Используйте наш калькулятор для расчета — результат за 1 минуту.
+                            Стоимость включает разработку (€50–150/час), дизайн, тестирование, дeплойка и поддержку.
+                            Минимальный проект начинается с $500. Используйте наш калькулятор для расчета — результат за
+                            1 минуту.
                         </div>
                     </div>
                 </div>
@@ -283,7 +318,8 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
-                            Лендинг: 1–2 недели. Корпоративный сайт: 3–4 недели. Интернет-магазин: 4–8 недель. SaaS платформа: 8–16 недель. Сроки зависят от загруженности команды и сложности проекта.
+                            Лендинг: 1–2 недели. Корпоративный сайт: 3–4 недели. Интернет-магазин: 4–8 недель. SaaS
+                            платформа: 8–16 недель. Сроки зависят от загруженности команды и сложности проекта.
                         </div>
                     </div>
                 </div>

@@ -139,6 +139,7 @@ window.initScrollAnimations = function () {
 function initThemeToggle() {
   const savedTheme = localStorage.getItem("theme") || "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
+  localStorage.setItem("theme", savedTheme);
 
   const themeToggle = document.getElementById("theme-toggle");
   const moonIcon = buildIcon(

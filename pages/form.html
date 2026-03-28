@@ -14,10 +14,12 @@
         rel="stylesheet">
 
     <!-- SEO -->
-    <title>Новый проект - Aura Web</title>
-    <meta name="description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
-    <meta property="og:title" content="Новый проект - Aura Web">
-    <meta property="og:description" content="Aura Web — премиальная разработка корпоративных сайтов и приложений.">
+    <title>Заказать сайт - Aura Web</title>
+    <meta name="description"
+        content="Заказать веб-сайт или приложение у профессиональной студии. Бесплатная консультация и расчет стоимости за 24 часа.">
+    <meta property="og:title" content="Заказать сайт - Aura Web">
+    <meta property="og:description"
+        content="Заказать веб-сайт или приложение. Бесплатная консультация и расчет стоимости за 24 часа.">
 
     <!-- Styles -->
     <link rel="stylesheet" href="../css/variables.css">
@@ -44,7 +46,7 @@
                 <ul class="nav__list" id="nav-list">
                     <li><a href="../index.html" class="nav__link">Главная</a></li>
                     <li><a href="form.html" class="nav__link nav__link--active">Заказать</a></li>
-                    <li><a href="about.html" class="nav__link">О нас / Цены</a></li>
+                    <li><a href="about.html" class="nav__link">Услуги и цены</a></li>
                     <li><a href="stats.html" class="nav__link">Аналитика</a></li>
                 </ul>
             </nav>
@@ -62,13 +64,18 @@
     </header>
 
     <main class="container form-page-main">
-        <div class="glass form-container">
-            <h1 class="form-title">Создание
-                проекта</h1>
+        <section class="form-intro animate-on-scroll" aria-labelledby="form-intro-title">
+            <h1 id="form-intro-title" class="form-intro__title">Расскажите нам о вашем проекте</h1>
+            <p class="form-intro__subtitle">Заполните форму, чтобы получить бесплатную консультацию и расчет стоимости.
+                Мы свяжемся с вами в течение 24 часов.</p>
+        </section>
+
+        <div class="glass form-container animate-on-scroll">
+            <h2 class="form-title">Детали проекта</h2>
 
             <form id="project-form" class="form-grid" novalidate>
                 <div class="input-float full-width">
-                    <input type="text" id="title" class="form__input" placeholder=" ">
+                    <input type="text" id="title" class="form__input form_padding" placeholder=" ">
                     <label for="title">Название проекта *</label>
                 </div>
 
@@ -88,12 +95,12 @@
 
                 <div class="input-float full-width">
                     <input type="number" id="price" class="form__input" placeholder=" " min="0">
-                    <label for="price">Бюджет, USD *</label>
+                    <label for="price">Примерный бюджет проекта, USD *</label>
                 </div>
 
                 <div class="input-float full-width">
                     <textarea id="desc" class="form__input" placeholder=" "></textarea>
-                    <label for="desc">Подробное описание задачи *</label>
+                    <label for="desc">Чем мы вам можем помочь? *</label>
                 </div>
 
                 <div class="form-actions">

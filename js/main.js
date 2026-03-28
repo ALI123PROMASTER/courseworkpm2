@@ -44,6 +44,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =============================
+  // HERO Scroll Cue (hide on scroll)
+  // =============================
+  const heroScrollCue = document.getElementById("hero-scroll-cue");
+
+  function updateHeroScrollCueVisibility() {
+    if (!heroScrollCue) return;
+    if (window.scrollY > 80) {
+      heroScrollCue.classList.add("is-hidden");
+    } else {
+      heroScrollCue.classList.remove("is-hidden");
+    }
+  }
+
+  if (heroScrollCue) {
+    window.addEventListener("scroll", updateHeroScrollCueVisibility, {
+      passive: true,
+    });
+    updateHeroScrollCueVisibility();
+  }
+
+  // =============================
   // НАВИГАЦИЯ (Scroll Spy)
   // =============================
   const sections = document.querySelectorAll("section[id]");
