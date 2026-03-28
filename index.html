@@ -181,7 +181,7 @@
         <section class="gallery animate-on-scroll">
             <div class="container">
                 <h2 class="section-title text-center">Галерея проектов</h2>
-                <div class="gallery-toolbar" aria-label="Фильтр галереи">
+                <div class="gallery-toolbar" role="group" aria-label="Фильтр галереи">
                     <button class="gallery-filter is-active" type="button" data-filter="all">Все</button>
                     <button class="gallery-filter" type="button" data-filter="web">Web</button>
                     <button class="gallery-filter" type="button" data-filter="mobile">Mobile</button>
@@ -192,82 +192,82 @@
                         data-cat="Web Разработка">
                         <img src="media/images/gallery/gallery-1.svg" alt="Web Development" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">E-commerce Platform</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">E-commerce Platform</span>
                             <span class="gallery-cat">Web Разработка</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="web" data-title="CRM System"
                         data-cat="Корпоративные системы">
                         <img src="media/images/gallery/gallery-2.svg" alt="Data Analytics" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">CRM System</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">CRM System</span>
                             <span class="gallery-cat">Корпоративные системы</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="web" data-title="SaaS Dashboard"
                         data-cat="Web Платформы">
                         <img src="media/images/gallery/gallery-3.svg" alt="Programming" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">SaaS Dashboard</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">SaaS Dashboard</span>
                             <span class="gallery-cat">Web Платформы</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="mobile" data-title="Fintech App"
                         data-cat="Мобильные приложения">
                         <img src="media/images/gallery/gallery-4.svg" alt="Mobile App" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">Fintech App</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">Fintech App</span>
                             <span class="gallery-cat">Мобильные приложения</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="web" data-title="AI Analytics Hub"
                         data-cat="Data Platform">
                         <img src="media/images/gallery/gallery-5.svg" alt="AI Analytics" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">AI Analytics Hub</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">AI Analytics Hub</span>
                             <span class="gallery-cat">Data Platform</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="mobile" data-title="Mobile Banking"
                         data-cat="Product Design">
                         <img src="media/images/gallery/gallery-6.svg" alt="Mobile Product" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">Mobile Banking</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">Mobile Banking</span>
                             <span class="gallery-cat">Product Design</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="web" data-title="Cloud Infrastructure"
                         data-cat="Enterprise Systems">
                         <img src="media/images/gallery/gallery-7.svg" alt="Cloud Infrastructure" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">Cloud Infrastructure</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">Cloud Infrastructure</span>
                             <span class="gallery-cat">Enterprise Systems</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="design" data-title="Design System"
                         data-cat="UI/UX Design">
                         <img src="media/images/gallery/gallery-8.svg" alt="Design System" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">Design System</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">Design System</span>
                             <span class="gallery-cat">UI/UX Design</span>
-                        </div>
+                        </span>
                     </button>
                     <button class="gallery-item" type="button" data-category="web" data-title="E-learning Platform"
                         data-cat="EdTech">
                         <img src="media/images/gallery/gallery-9.svg" alt="E-learning Platform" class="gallery-img"
                             loading="lazy" width="500" height="400">
-                        <div class="gallery-overlay">
-                            <h3 class="gallery-title">E-learning Platform</h3>
+                        <span class="gallery-overlay">
+                            <span class="gallery-title">E-learning Platform</span>
                             <span class="gallery-cat">EdTech</span>
-                        </div>
+                        </span>
                     </button>
                 </div>
 
@@ -280,7 +280,7 @@
                         <img id="gallery-lightbox-image" class="gallery-lightbox__image"
                             src="media/images/gallery/gallery-1.svg" alt="Просмотр изображения">
                         <div class="gallery-lightbox__meta">
-                            <h3 id="gallery-lightbox-title"></h3>
+                            <h3 id="gallery-lightbox-title">Проект</h3>
                             <span id="gallery-lightbox-cat"></span>
                         </div>
                         <div class="gallery-lightbox__actions">
