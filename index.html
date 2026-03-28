@@ -70,7 +70,6 @@
             <div class="hero__surface">
                 <div class="hero__grid">
                     <div class="hero__content animate-on-scroll">
-                        <p class="hero__kicker">AURA WEB PLATFORM</p>
                         <h1 class="hero__title">Цифровые продукты для <span>роста бизнеса</span></h1>
                         <p class="hero__desc">Запускаем сайты, сервисы и интерфейсы, которые работают на продажи: от
                             концепции и дизайна до релиза и поддержки.</p>
@@ -88,10 +87,14 @@
                     </div>
 
                     <div class="hero__media glass animate-on-scroll">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&h=700&fit=crop&fm=webp"
-                            alt="Команда обсуждает запуск цифрового продукта" loading="eager" width="1000" height="700"
-                            crossorigin="anonymous">
-                        <button class="hero__play" type="button" aria-label="Смотреть презентацию">▶</button>
+                        <video class="hero__video" autoplay loop muted playsinline preload="metadata"
+                            poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&h=700&fit=crop&fm=webp"
+                            aria-label="Видео о процессе создания цифрового продукта">
+                            <source
+                                src="https://media.istockphoto.com/id/1556389414/video/man-using-a-laptop-double-exposure-with-business-data-analytics-dashboard.mp4?s=mp4-640x640-is&k=20&c=J7dE_a85kSnTLEFiXYLbDpK-W9_8S6GtD14l3DD6EMQ="
+                                type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
                     </div>
                 </div>
 
@@ -141,7 +144,8 @@
                         </svg>
                     </div>
                     <h3>UI/UX Дизайн</h3>
-                    <p>От идеи до пикселя: дизайн, который не только красивый, но и конвертит. Тестирование, аналитика,
+                    <p>От идеи до пикселя: дизайн, который не только визуально сильный, но и повышает конверсию.
+                        Тестирование, аналитика,
                         оптимизация.</p>
                 </div>
             </div>
@@ -151,7 +155,7 @@
         <section id="portfolio" class="dashboard container">
             <div class="dashboard__header animate-on-scroll">
                 <div>
-                    <h2 class="section-title">Проекты в работе</h2>
+                    <h2 class="section-title">Портфель проектов</h2>
                     <p class="section-subtitle mb-0">Управление и мониторинг портфеля</p>
                 </div>
 
@@ -285,7 +289,8 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-content-inner">
-                            Стоимость включает разработку (€50–150/час), дизайн, тестирование, дeплойка и поддержку.
+                            Стоимость включает разработку ($50–150/час), дизайн, тестирование, развертывание и
+                            поддержку.
                             Минимальный проект начинается с $500. Используйте наш калькулятор для расчета — результат за
                             1 минуту.
                         </div>
@@ -335,17 +340,25 @@
                 Aura Web
             </a>
 
+            <p class="footer__pitch">Запускаем веб-продукты под KPI бизнеса: от идеи до релиза и поддержки.</p>
+
+            <nav class="footer__links" aria-label="Быстрые ссылки">
+                <a href="pages/form.html">Заказать</a>
+                <a href="pages/about.html">Услуги и цены</a>
+                <a href="pages/stats.html">Аналитика</a>
+            </nav>
+
             <div class="socials">
-                <a href="#" class="social-link" rel="noopener" aria-label="Telegram"><svg fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" width="20">
+                <a href="https://telegram.org/" class="social-link" rel="noopener noreferrer" aria-label="Telegram"><svg
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20">
                         <use href="media/icons/telegram.svg#telegram"></use>
                     </svg></a>
-                <a href="#" class="social-link" rel="noopener" aria-label="Twitter"><svg fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" width="20">
+                <a href="https://twitter.com/" class="social-link" rel="noopener noreferrer" aria-label="Twitter"><svg
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20">
                         <use href="media/icons/twitter.svg#twitter"></use>
                     </svg></a>
-                <a href="#" class="social-link" rel="noopener" aria-label="LinkedIn"><svg fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" width="20">
+                <a href="https://www.linkedin.com/" class="social-link" rel="noopener noreferrer"
+                    aria-label="LinkedIn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20">
                         <use href="media/icons/linkedin.svg#linkedin"></use>
                     </svg></a>
             </div>
@@ -353,6 +366,7 @@
             <div class="footer__contact">
                 <a href="tel:+18001234567" class="footer__phone"
                     style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+                <a href="mailto:hello@aura-web.dev" class="footer__mail">hello@aura-web.dev</a>
             </div>
             <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
         </div>

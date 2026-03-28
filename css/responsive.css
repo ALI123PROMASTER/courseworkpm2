@@ -139,9 +139,27 @@
     }
 
     .footer__container {
-        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         gap: 1.5rem;
+    }
+
+    .footer__contact {
+        margin-left: 0;
+        align-items: center;
+    }
+
+    .footer__copy {
+        margin-top: 0;
+    }
+
+    .footer__pitch {
+        max-width: 100%;
+    }
+
+    .footer__links {
+        justify-content: center;
     }
 
     .pricing-page__body {

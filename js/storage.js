@@ -1,6 +1,6 @@
-// =============================
-// API ХРАНИЛИЩА
-// =============================
+// ============================================================
+// 01. API ХРАНИЛИЩА
+// ============================================================
 const STORAGE_KEY = "it_company_projects_premium";
 
 function getInitialData() {
@@ -84,9 +84,9 @@ function saveData(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-// =============================
-// ПУТИ И ИКОНКИ
-// =============================
+// ============================================================
+// 02. ПУТИ И ИКОНКИ
+// ============================================================
 function getPathPrefix() {
   return window.location.pathname.includes("/pages/") ? "../" : "";
 }
@@ -102,9 +102,9 @@ function buildIcon(symbolId, attributes) {
 window.getIconHref = getIconHref;
 window.buildIcon = buildIcon;
 
-// =============================
-// ГЛОБАЛЬНЫЕ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-// =============================
+// ============================================================
+// 03. ГЛОБАЛЬНЫЕ ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+// ============================================================
 window.escapeHTML = function (str) {
   if (typeof str !== "string") return str;
 
@@ -133,9 +133,9 @@ window.initScrollAnimations = function () {
     .forEach((el) => observer.observe(el));
 };
 
-// =============================
-// ИНИЦИАЛИЗАЦИЯ UI
-// =============================
+// ============================================================
+// 04. ИНИЦИАЛИЗАЦИЯ UI
+// ============================================================
 function initThemeToggle() {
   const savedTheme = localStorage.getItem("theme") || "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
@@ -179,6 +179,11 @@ function initBurgerMenu() {
   const newBurger = burger.cloneNode(true);
   burger.parentNode.replaceChild(newBurger, burger);
 
+  const closeMenu = () => {
+    newBurger.classList.remove("active");
+    navList.classList.remove("open");
+  };
+
   newBurger.addEventListener("click", () => {
     newBurger.classList.toggle("active");
     navList.classList.toggle("open");
@@ -190,9 +195,25 @@ function initBurgerMenu() {
       navLinks.forEach((nav) => nav.classList.remove("nav__link--active"));
       this.classList.add("nav__link--active");
 
-      newBurger.classList.remove("active");
-      navList.classList.remove("open");
+      closeMenu();
     });
+  });
+
+  // На скролле и смене ширины закрываем меню, чтобы оно не смещалось вместе с sticky-header.
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (navList.classList.contains("open")) {
+        closeMenu();
+      }
+    },
+    { passive: true },
+  );
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
   });
 }
 

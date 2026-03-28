@@ -65,28 +65,27 @@
 
     <main class="container page-main">
         <h1 class="section-title animate-on-scroll">Мониторинг ваших проектов</h1>
-        <p class="section-subtitle animate-on-scroll">Отслеживайте статус вашего проекта в режиме реального
+        <p class="section-subtitle animate-on-scroll">Отслеживайте статус ваших проектов в режиме реального
             времени.<br>Добавьте первый проект на странице <a href="form.html" class="stats-link">Заказать</a>.</p>
-        <p class="stats-note">Эта страница — вспомогательный инструмент для отслеживания добавленных вами проектов. Она
-            демонстрирует возможности нашей платформы управления.</p>
+        <p class="stats-note">Данные загружаются из проектов, добавленных на странице «Заказать».</p>
 
         <section class="analytics-page glass animate-on-scroll" aria-label="Сводная аналитика">
             <!-- KPI Cards -->
             <div class="stats-grid">
                 <div class="stat-card animate-on-scroll">
-                    <h2 class="kpi-title">Всего проектов</h2>
+                    <div class="kpi-title">Всего проектов</div>
                     <div class="stat-val" id="kpi-total-projects">0</div>
                     <div class="kpi-success">В системе</div>
                 </div>
 
                 <div class="stat-card animate-on-scroll">
-                    <h2 class="kpi-title">Общий бюджет (USD)</h2>
+                    <div class="kpi-title">Общий бюджет (USD)</div>
                     <div class="stat-val stat-val--warning" id="kpi-total-budget">$0</div>
                     <div class="kpi-success">+12% за месяц</div>
                 </div>
 
                 <div class="stat-card animate-on-scroll">
-                    <h2 class="kpi-title">Успешность сдачи</h2>
+                    <div class="kpi-title">Успешность сдачи</div>
                     <div class="stat-val" id="kpi-success-rate">0%</div>
                     <div class="kpi-text">Доля проектов "Готово"</div>
                 </div>
@@ -130,9 +129,19 @@
             <div class="logo">
                 <div class="logo__icon logo__icon--small">A</div>Aura Web
             </div>
+
+            <p class="footer__pitch">Запускаем веб-продукты под KPI бизнеса: от идеи до релиза и поддержки.</p>
+
+            <nav class="footer__links" aria-label="Быстрые ссылки">
+                <a href="../index.html">Главная</a>
+                <a href="form.html">Заказать</a>
+                <a href="about.html">Услуги и цены</a>
+            </nav>
+
             <div class="footer__contact">
                 <a href="tel:+18001234567" class="footer__phone"
                     style="color: var(--text-primary); text-decoration: none; font-weight: 500;">8 (800) 123-45-67</a>
+                <a href="mailto:hello@aura-web.dev" class="footer__mail">hello@aura-web.dev</a>
             </div>
             <div class="footer__copy">&copy; 2026 Aura Web. Все права защищены.</div>
         </div>

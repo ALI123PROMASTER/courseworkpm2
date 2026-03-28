@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // =============================
-  // Общие утилиты
-  // =============================
+  // ============================================================
+  // 01. ОБЩИЕ УТИЛИТЫ
+  // ============================================================
   const getIconHref = window.getIconHref
     ? window.getIconHref
     : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Intl.NumberFormat("en-US").format(num);
   }
 
-  // =============================
-  // Scroll Spy (активная ссылка меню)
-  // =============================
+  // ============================================================
+  // 02. SCROLL SPY (АКТИВНАЯ ССЫЛКА МЕНЮ)
+  // ============================================================
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(
     '.nav__list a[href^="#"], .nav__list a[href="index.html"]',
@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
     highlightNavigation();
   }
 
-  // =============================
-  // Карточки проектов (рендер + фильтры)
-  // =============================
+  // ============================================================
+  // 03. КАРТОЧКИ ПРОЕКТОВ (РЕНДЕР + ФИЛЬТРЫ)
+  // ============================================================
   const projectsGrid = document.getElementById("projects-grid");
   const searchInput = document.getElementById("search-input");
   const categoryFilter = document.getElementById("category-filter");
@@ -180,9 +180,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchInput) searchInput.addEventListener("input", renderCards);
   if (categoryFilter) categoryFilter.addEventListener("change", renderCards);
 
-  // =============================
-  // Модальное окно редактирования
-  // =============================
+  // ============================================================
+  // 04. МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ
+  // ============================================================
   const modal = document.getElementById("edit-modal");
   const closeBtn = document.getElementById("close-modal");
   const cancelBtn = document.getElementById("cancel-modal");
@@ -246,9 +246,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // Делегирование событий карточек
-  // =============================
+  // ============================================================
+  // 05. ДЕЛЕГИРОВАНИЕ СОБЫТИЙ КАРТОЧЕК
+  // ============================================================
   if (projectsGrid) {
     projectsGrid.addEventListener("click", (e) => {
       const deleteBtn = e.target.closest(".btn-delete");
@@ -292,9 +292,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // FAQ аккордеон
-  // =============================
+  // ============================================================
+  // 06. FAQ АККОРДЕОН
+  // ============================================================
   const accordionHeaders = document.querySelectorAll(".accordion-header");
   accordionHeaders.forEach((header) => {
     header.addEventListener("click", () => {

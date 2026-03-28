@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // =============================
-  // НАСТРОЙКИ / СОСТОЯНИЕ
-  // =============================
+  // ============================================================
+  // 01. НАСТРОЙКИ / СОСТОЯНИЕ
+  // ============================================================
   const REVIEWS_KEY = "premium_reviews";
   const reviewsGrid = document.getElementById("reviews-grid");
   const reviewForm = document.getElementById("review-form");
@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let reviews = JSON.parse(localStorage.getItem(REVIEWS_KEY)) || defaultReviews;
 
-  // =============================
-  // ХРАНИЛИЩЕ
-  // =============================
+  // ============================================================
+  // 02. ХРАНИЛИЩЕ
+  // ============================================================
   function saveReviews() {
     localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
   }
@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     saveReviews();
   }
 
-  // =============================
-  // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ПРЕДСТАВЛЕНИЯ
-  // =============================
+  // ============================================================
+  // 03. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ПРЕДСТАВЛЕНИЯ
+  // ============================================================
   function createReviewElement(review) {
     const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
     const safeName = window.escapeHTML(review.name);
@@ -70,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return card;
   }
 
-  // =============================
-  // ОТРИСОВКА
-  // =============================
+  // ============================================================
+  // 04. ОТРИСОВКА
+  // ============================================================
   function renderReviews() {
     if (!reviewsGrid) return;
     reviewsGrid.innerHTML = "";
@@ -81,9 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // ИНКРЕМЕНТАЛЬНОЕ ОБНОВЛЕНИЕ
-  // =============================
+  // ============================================================
+  // 05. ИНКРЕМЕНТАЛЬНОЕ ОБНОВЛЕНИЕ
+  // ============================================================
   function addReviewToDOM(review) {
     if (!reviewsGrid) return;
     const newCard = createReviewElement(review);
@@ -92,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
     newCard.classList.add("is-visible");
   }
 
-  // =============================
-  // СОБЫТИЯ ФОРМЫ
-  // =============================
+  // ============================================================
+  // 06. СОБЫТИЯ ФОРМЫ
+  // ============================================================
   if (reviewForm) {
     reviewForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -129,9 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // СИНХРОНИЗАЦИЯ МЕЖДУ ВКЛАДКАМИ
-  // =============================
+  // ============================================================
+  // 07. СИНХРОНИЗАЦИЯ МЕЖДУ ВКЛАДКАМИ
+  // ============================================================
   let lastReviewCount = reviews.length;
 
   window.addEventListener("storage", (e) => {
@@ -154,8 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderReviews();
   });
 
-  // =============================
-  // ИНИЦИАЛИЗАЦИЯ
-  // =============================
+  // ============================================================
+  // 08. ИНИЦИАЛИЗАЦИЯ
+  // ============================================================
   renderReviews();
 });

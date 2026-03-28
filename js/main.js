@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // =============================
-  // НАСТРОЙКИ / ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-  // =============================
-  // =============================
-  // Общие утилиты
-  // =============================
+  // ============================================================
+  // 01. БАЗОВЫЕ УТИЛИТЫ
+  // ============================================================
   const getIconHref = window.getIconHref
     ? window.getIconHref
     : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
@@ -43,9 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Intl.NumberFormat("en-US").format(num);
   }
 
-  // =============================
-  // HERO Scroll Cue (hide on scroll)
-  // =============================
+  // ============================================================
+  // 02. HERO: SCROLL CUE
+  // ============================================================
   const heroScrollCue = document.getElementById("hero-scroll-cue");
 
   function updateHeroScrollCueVisibility() {
@@ -64,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHeroScrollCueVisibility();
   }
 
-  // =============================
-  // НАВИГАЦИЯ (Scroll Spy)
-  // =============================
+  // ============================================================
+  // 03. НАВИГАЦИЯ (SCROLL SPY)
+  // ============================================================
   const sections = document.querySelectorAll("section[id]");
   const sectionNavLinks = document.querySelectorAll('.nav__list a[href^="#"]');
 
@@ -107,9 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
     highlightNavigation();
   }
 
-  // =============================
-  // ПРОЕКТЫ (рендер + фильтры)
-  // =============================
+  // ============================================================
+  // 04. ПРОЕКТЫ: РЕНДЕР И ФИЛЬТРЫ
+  // ============================================================
   const projectsGrid = document.getElementById("projects-grid");
   const searchInput = document.getElementById("search-input");
   const categoryFilter = document.getElementById("category-filter");
@@ -243,9 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchInput) searchInput.addEventListener("input", renderCards);
   if (categoryFilter) categoryFilter.addEventListener("change", renderCards);
 
-  // =============================
-  // МОДАЛЬНОЕ ОКНО (редактирование)
-  // =============================
+  // ============================================================
+  // 05. МОДАЛЬНОЕ ОКНО (РЕДАКТИРОВАНИЕ)
+  // ============================================================
   const modal = document.getElementById("edit-modal");
   const closeBtn = document.getElementById("close-modal");
   const cancelBtn = document.getElementById("cancel-modal");
@@ -309,9 +306,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // СОБЫТИЯ ПРОЕКТОВ
-  // =============================
+  // ============================================================
+  // 06. СОБЫТИЯ ПРОЕКТОВ
+  // ============================================================
   if (projectsGrid) {
     projectsGrid.addEventListener("click", (e) => {
       const deleteBtn = e.target.closest(".btn-delete");
@@ -356,9 +353,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // FAQ (АККОРДЕОН)
-  // =============================
+  // ============================================================
+  // 07. FAQ (АККОРДЕОН)
+  // ============================================================
   const accordionHeaders = document.querySelectorAll(".accordion-header");
   accordionHeaders.forEach((header) => {
     header.addEventListener("click", () => {
@@ -381,8 +378,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // =============================
-  // ИНИЦИАЛИЗАЦИЯ
-  // =============================
+  // ============================================================
+  // 08. ИНИЦИАЛИЗАЦИЯ
+  // ============================================================
   renderCards();
 });

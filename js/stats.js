@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // =============================
-  // НАСТРОЙКИ / СОСТОЯНИЕ
-  // =============================
+  // ============================================================
+  // 01. НАСТРОЙКИ / СОСТОЯНИЕ
+  // ============================================================
   const data = getData();
 
-  // =============================
-  // БЛОК KPI
-  // =============================
+  // ============================================================
+  // 02. БЛОК KPI
+  // ============================================================
   const totalProjectsEl = document.getElementById("kpi-total-projects");
   const totalBudgetEl = document.getElementById("kpi-total-budget");
   const successRateEl = document.getElementById("kpi-success-rate");
@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const successRate =
     totalProjects > 0 ? Math.round((completedCount / totalProjects) * 100) : 0;
 
-  // =============================
-  // UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-  // =============================
+  // ============================================================
+  // 03. UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+  // ============================================================
   function animateValue(obj, objPrefix, start, end, duration) {
     if (!obj) return;
 
@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
     animateValue(successRateEl, "%", 0, successRate, 1500);
   }, 300);
 
-  // =============================
-  // ПОЛОСЫ ПО КАТЕГОРИЯМ
-  // =============================
+  // ============================================================
+  // 04. ПОЛОСЫ ПО КАТЕГОРИЯМ
+  // ============================================================
   const categoryBarsContainer = document.getElementById("category-bars");
   const categoryCounts = {};
 
@@ -96,9 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =============================
-  // КРУГОВАЯ ДИАГРАММА БЮДЖЕТА
-  // =============================
+  // ============================================================
+  // 05. КРУГОВАЯ ДИАГРАММА БЮДЖЕТА
+  // ============================================================
   const circleChart = document.getElementById("circle-chart");
   const chartLegend = document.getElementById("chart-legend");
   const topSphereEl = document.getElementById("top-sphere");
@@ -163,7 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 400);
   }
 
-  // =============================
-  // ИНИЦИАЛИЗАЦИЯ
-  // =============================
+  // 06. ИНИЦИАЛИЗАЦИЯ
+  // Все вычисления и отрисовка запускаются автоматически при загрузке.
 });

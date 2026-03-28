@@ -1,6 +1,6 @@
-// =============================
-// Вспомогательные стили
-// =============================
+// ============================================================
+// 01. ВСПОМОГАТЕЛЬНЫЕ СТИЛИ
+// ============================================================
 function ensureShakeKeyframes() {
   if (document.getElementById("shake-keyframes")) return;
 
@@ -18,9 +18,9 @@ function ensureShakeKeyframes() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // =============================
-  // НАСТРОЙКИ / СОСТОЯНИЕ
-  // =============================
+  // ============================================================
+  // 02. НАСТРОЙКИ / СОСТОЯНИЕ
+  // ============================================================
   ensureShakeKeyframes();
 
   const form = document.getElementById("project-form");
@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ? window.getIconHref
     : (symbolId) => `media/icons/${symbolId}.svg#${symbolId}`;
 
-  // =============================
-  // UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-  // =============================
+  // ============================================================
+  // 03. UI: ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+  // ============================================================
   function showToast(message, type = "error") {
     const container = document.getElementById("toast-container");
     if (!container) return;
@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 4000);
   }
 
-  // =============================
-  // ВАЛИДАЦИЯ
-  // =============================
+  // ============================================================
+  // 04. ВАЛИДАЦИЯ
+  // ============================================================
   function getFormFields() {
     return {
       titleEl: document.getElementById("title"),
@@ -111,9 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // =============================
-  // СОБЫТИЯ ФОРМЫ
-  // =============================
+  // ============================================================
+  // 05. СОБЫТИЯ ФОРМЫ
+  // ============================================================
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -155,8 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
   cancelBtn.addEventListener("click", () => {
     window.location.href = rootIndexPath;
   });
-
-  // =============================
-  // ИНИЦИАЛИЗАЦИЯ
-  // =============================
+  // 06. ИНИЦИАЛИЗАЦИЯ
+  // Дополнительные действия не требуются: обработчики уже подключены.
 });
